@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="公式メタデータを基礎にしたゲームライブラリのオントロジー型ダッシュボード。" />
+    <title>Game Library Ontology Dashboard</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f4f1ea;
+        --ink: #171713;
+        --muted: #65665c;
+        --line: #d9d1c3;
+        --panel: #fffdf7;
+        --panel-2: #ebe5d9;
+        --steel: #263c4a;
+        --moss: #516b44;
+        --gold: #c49a45;
+        --shadow: 0 22px 60px rgb(38 33 24 / 0.15);
+        --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        --sans: "Avenir Next", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          linear-gradient(90deg, rgb(38 60 74 / 0.08) 1px, transparent 1px),
+          linear-gradient(180deg, #fffaf0 0, var(--paper) 32rem);
+        background-size: 42px 42px, auto;
+        color: var(--ink);
+        font-family: var(--sans);
+        letter-spacing: 0;
+      }
+      a { color: inherit; }
+      .shell { width: min(1480px, calc(100% - 28px)); margin: 0 auto; padding: 22px 0 44px; }
+      .topbar, .grid-head { display: flex; justify-content: space-between; align-items: end; gap: 14px; }
+      .topbar { min-height: 46px; align-items: center; border-bottom: 1px solid var(--line); }
+      .brand { display: flex; align-items: center; gap: 10px; min-width: 0; font-weight: 800; }
+      .mark {
+        width: 32px; height: 32px; border: 1px solid rgb(23 23 19 / 0.22); border-radius: 8px;
+        background:
+          linear-gradient(135deg, transparent 0 44%, rgb(255 255 255 / 0.72) 45% 55%, transparent 56%),
+          linear-gradient(135deg, var(--steel), var(--moss));
+      }
+      .links, .chips, .card-links { display: flex; flex-wrap: wrap; gap: 8px; }
+      .links { justify-content: flex-end; align-items: center; }
+      .links a, button, select, input {
+        min-height: 36px; border: 1px solid var(--line); border-radius: 8px;
+        background: var(--panel); color: var(--ink); font: inherit;
+      }
+      .links a, .card-links a { display: inline-flex; align-items: center; text-decoration: none; }
+      .links a { padding: 0 12px; color: var(--muted); }
+      .lang-switch { display: inline-grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: 8px; overflow: clip; background: var(--panel); }
+      .lang-switch button { min-height: 34px; border: 0; border-radius: 0; padding: 0 10px; color: var(--muted); background: transparent; }
+      .lang-switch button[aria-pressed="true"] { color: #fff; background: var(--steel); }
+      .hero { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(310px, 0.7fr); gap: 18px; align-items: end; padding: 28px 0 18px; }
+      h1 { margin: 0; max-width: 980px; font-size: clamp(2.25rem, 5vw, 5.4rem); line-height: 0.95; font-weight: 900; }
+      .lead { max-width: 820px; margin: 18px 0 0; color: var(--muted); font-size: clamp(1rem, 1.3vw, 1.18rem); line-height: 1.75; }
+      .metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .metric, .node, .family-chart, .empty, .evidence {
+        border: 1px solid var(--line); border-radius: 8px; background: rgb(255 253 247 / 0.88);
+      }
+      .metric { min-height: 108px; padding: 15px; box-shadow: var(--shadow); }
+      .metric strong { display: block; font-family: var(--mono); font-size: clamp(1.7rem, 4vw, 2.8rem); line-height: 1; }
+      .metric span { display: block; margin-top: 8px; color: var(--muted); font-size: 0.86rem; line-height: 1.45; }
+      .controls {
+        position: sticky; top: 0; z-index: 10; display: grid;
+        grid-template-columns: minmax(180px, 1.25fr) repeat(4, minmax(130px, 0.8fr)) auto;
+        gap: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 8px;
+        background: rgb(255 253 247 / 0.9); backdrop-filter: blur(16px);
+        box-shadow: 0 16px 34px rgb(38 33 24 / 0.1);
+      }
+      .control { display: grid; gap: 5px; min-width: 0; }
+      label { color: var(--muted); font-size: 0.76rem; font-weight: 800; }
+      input, select { width: 100%; padding: 0 12px; }
+      button { cursor: pointer; padding: 0 12px; font-weight: 800; }
+      .ontology { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
+      .node { min-height: 106px; padding: 13px; }
+      .node b { display: block; margin-bottom: 8px; font-size: 0.92rem; }
+      .node span { display: block; color: var(--muted); font-size: 0.78rem; line-height: 1.48; }
+      .family-chart { display: grid; gap: 8px; margin-top: 18px; padding: 14px; }
+      .bar { display: grid; grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr) 3rem; gap: 10px; align-items: center; font-size: 0.86rem; }
+      .rail { height: 13px; border-radius: 999px; background: var(--panel-2); overflow: hidden; }
+      .fill { display: block; height: 100%; width: var(--value); background: linear-gradient(90deg, var(--steel), var(--moss), var(--gold)); }
+      .grid-head { margin-top: 22px; }
+      h2 { margin: 0; font-size: 1.1rem; }
+      .count { color: var(--muted); font-family: var(--mono); font-size: 0.86rem; }
+      .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; margin-top: 12px; }
+      .game-card {
+        display: grid; grid-template-rows: auto 1fr; min-height: 350px; border: 1px solid var(--line);
+        border-radius: 8px; background: var(--panel); box-shadow: 0 12px 34px rgb(38 33 24 / 0.09); overflow: clip;
+      }
+      .game-card[hidden], .empty { display: none; }
+      .game-card img { width: 100%; aspect-ratio: 460 / 215; object-fit: cover; background: var(--panel-2); }
+      .game-body { display: grid; gap: 10px; padding: 13px; }
+      .game-title { margin: 0; font-size: 1rem; line-height: 1.25; }
+      .meta { display: grid; gap: 4px; color: var(--muted); font-size: 0.78rem; line-height: 1.35; }
+      .chip {
+        max-width: 100%; padding: 4px 7px; border: 1px solid rgb(38 60 74 / 0.18);
+        border-radius: 999px; background: rgb(38 60 74 / 0.06); color: var(--steel);
+        font-size: 0.72rem; overflow-wrap: anywhere;
+      }
+      .card-links { align-self: end; }
+      .card-links a {
+        min-height: 32px; padding: 0 9px; border: 1px solid var(--line);
+        border-radius: 8px; color: var(--ink); font-size: 0.78rem; font-weight: 800;
+      }
+      .empty.visible { display: block; margin-top: 16px; padding: 18px; color: var(--muted); }
+      .evidence { margin-top: 22px; padding: 14px; color: var(--muted); font-size: 0.82rem; line-height: 1.65; }
+      .evidence code { color: var(--ink); font-family: var(--mono); font-size: 0.78rem; }
+      @media (max-width: 1120px) {
+        .hero, .controls { grid-template-columns: 1fr; }
+        .ontology { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      }
+      @media (max-width: 720px) {
+        .shell { width: min(100% - 18px, 1480px); }
+        .topbar, .grid-head { align-items: start; flex-direction: column; }
+        .links { justify-content: flex-start; }
+        .metrics, .ontology { grid-template-columns: 1fr; }
+        .bar { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <nav class="topbar" aria-label="Dashboard links">
+        <div class="brand"><span class="mark" aria-hidden="true"></span><span>Game Ontology DB</span></div>
+        <div class="links">
+          <div class="lang-switch" aria-label="Language">
+            <button type="button" data-lang-button="ja" aria-pressed="true">JA</button>
+            <button type="button" data-lang-button="en" aria-pressed="false">EN</button>
+          </div>
+          <a href="https://store.steampowered.com/" rel="noreferrer">Steam Store</a>
+          <a href="https://github.com/KAFKA2306/game-library-dashboard" rel="noreferrer">GitHub</a>
+        </div>
+      </nav>
+
+      <section class="hero">
+        <div>
+          <h1 id="hero-title"></h1>
+          <p class="lead" id="hero-lead"></p>
+        </div>
+        <div class="metrics" aria-label="Database metrics"></div>
+      </section>
+
+      <section class="controls" aria-label="Filters">
+        <div class="control"><label for="search" id="label-search"></label><input id="search" type="search" autocomplete="off" /></div>
+        <div class="control"><label for="family" id="label-family"></label><select id="family"><option value="">All</option></select></div>
+        <div class="control"><label for="genre" id="label-genre"></label><select id="genre"><option value="">All</option></select></div>
+        <div class="control"><label for="mode" id="label-mode"></label><select id="mode"><option value="">All</option></select></div>
+        <div class="control"><label for="tag" id="label-tag"></label><select id="tag"><option value="">All</option></select></div>
+        <button id="reset" type="button">Reset</button>
+      </section>
+
+      <section class="ontology" aria-label="Ontology"></section>
+      <section class="family-chart" aria-label="Family distribution"></section>
+      <section class="grid-head">
+        <div><h2>Library</h2><span class="count" id="result-count">loading</span></div>
+        <span class="count" id="price-count"></span>
+      </section>
+      <section class="game-grid" id="game-grid" aria-label="Game database"></section>
+      <div class="empty" id="empty">No games match the current filters.</div>
+      <section class="evidence" id="evidence"></section>
+    </main>
+
+    <script>
+      const controls = {
+        search: document.querySelector('#search'),
+        family: document.querySelector('#family'),
+        genre: document.querySelector('#genre'),
+        mode: document.querySelector('#mode'),
+        tag: document.querySelector('#tag'),
+        reset: document.querySelector('#reset'),
+        count: document.querySelector('#result-count'),
+        price: document.querySelector('#price-count'),
+        empty: document.querySelector('#empty'),
+      };
+      const grid = document.querySelector('#game-grid');
+      let games = [];
+      let libraryCache = null;
+      let currentLang = getInitialLanguage();
+      const text = {
+        ja: {
+          title: 'ゲーム群を、公式メタデータから読む。',
+          lead: '画像内の候補タイトルを公式メタデータで照合し、オントロジー、公式ジャンル、プレイ形態、派生タグ、公式画像で整理した軽量データベース。',
+          search: '検索',
+          searchPlaceholder: 'title, developer, tag',
+          family: '設計ファミリー',
+          genre: '公式ジャンル',
+          mode: 'プレイ形態',
+          tag: '派生タグ',
+          library: 'Library',
+          empty: 'No games match the current filters.',
+          shown: (count) => `${count} shown`,
+          free: (free, paid) => `${free} free-to-play / ${paid} paid or unknown`,
+          metrics: ['公式照合済みタイトル', '構造化した設計ファミリー', 'リリース日を取得できたタイトル', '公式サイトURLあり'],
+          evidence: (schema, date, policy) => `Schema <code>${schema}</code>. Generated <code>${date}</code>. Metadata source policy: ${policy}`,
+          image: 'image',
+          designer: 'Designer',
+          developerUnknown: 'Developer unknown',
+          links: { store: 'Store', official: 'Official', board: 'Board', metadata: 'Metadata' },
+        },
+        en: {
+          title: 'Read Games Through Official Metadata.',
+          lead: 'A lightweight database that verifies candidate titles from the image against official metadata, then structures them by ontology, official genres, play modes, derived tags, and official images.',
+          search: 'Search',
+          searchPlaceholder: 'title, developer, tag',
+          family: 'Design family',
+          genre: 'Official genre',
+          mode: 'Play mode',
+          tag: 'Derived tag',
+          library: 'Library',
+          empty: 'No games match the current filters.',
+          shown: (count) => `${count} shown`,
+          free: (free, paid) => `${free} free-to-play / ${paid} paid or unknown`,
+          metrics: ['Officially matched titles', 'Structured design families', 'Titles with release dates', 'Titles with official site URLs'],
+          evidence: (schema, date, policy) => `Schema <code>${schema}</code>. Generated <code>${date}</code>. Metadata source policy: ${policy}`,
+          image: 'image',
+          designer: 'Designer',
+          developerUnknown: 'Developer unknown',
+          links: { store: 'Store', official: 'Official', board: 'Board', metadata: 'Metadata' },
+        },
+      };
+
+      function getInitialLanguage() {
+        const saved = localStorage.getItem('game-dashboard-lang');
+        if (saved === 'ja' || saved === 'en') return saved;
+        try {
+          return new Intl.Locale(navigator.language).language === 'ja' ? 'ja' : 'en';
+        } catch {
+          return navigator.language?.startsWith('ja') ? 'ja' : 'en';
+        }
+      }
+
+      function option(select, value) {
+        const node = document.createElement('option');
+        node.value = value;
+        node.textContent = value;
+        select.append(node);
+      }
+      function unique(values) {
+        return [...new Set(values)].filter(Boolean).sort((a, b) => a.localeCompare(b));
+      }
+      function link(label, href) {
+        return href ? `<a href="${href}" rel="noreferrer">${label}</a>` : '';
+      }
+      function chip(value) {
+        return `<span class="chip">${value}</span>`;
+      }
+      function hasValue(source, value) {
+        return !value || source.split('|').includes(value);
+      }
+      function applyFilters() {
+        const query = controls.search.value.trim().toLowerCase();
+        let shown = 0;
+        for (const card of document.querySelectorAll('.game-card')) {
+          const visible =
+            (!query || card.dataset.search.includes(query)) &&
+            (!controls.family.value || card.dataset.family === controls.family.value) &&
+            hasValue(card.dataset.genres, controls.genre.value) &&
+            hasValue(card.dataset.modes, controls.mode.value) &&
+            hasValue(card.dataset.tags, controls.tag.value);
+          card.hidden = !visible;
+          if (visible) shown += 1;
+        }
+        controls.count.textContent = text[currentLang].shown(shown);
+        controls.empty.classList.toggle('visible', shown === 0);
+      }
+      function applyLanguage() {
+        const t = text[currentLang];
+        document.documentElement.lang = currentLang;
+        localStorage.setItem('game-dashboard-lang', currentLang);
+        document.querySelectorAll('[data-lang-button]').forEach((button) => {
+          button.setAttribute('aria-pressed', String(button.dataset.langButton === currentLang));
+        });
+        document.querySelector('#hero-title').textContent = t.title;
+        document.querySelector('#hero-lead').textContent = t.lead;
+        document.querySelector('#label-search').textContent = t.search;
+        document.querySelector('#label-family').textContent = t.family;
+        document.querySelector('#label-genre').textContent = t.genre;
+        document.querySelector('#label-mode').textContent = t.mode;
+        document.querySelector('#label-tag').textContent = t.tag;
+        controls.search.placeholder = t.searchPlaceholder;
+        document.querySelector('.grid-head h2').textContent = t.library;
+        controls.empty.textContent = t.empty;
+        if (libraryCache) render(libraryCache);
+      }
+      function render(library) {
+        libraryCache = library;
+        const t = text[currentLang];
+        games = library.games;
+        const families = Object.entries(library.ontology.design_families);
+        const genres = unique(games.flatMap((game) => game.official_genres));
+        const modes = unique(games.flatMap((game) => game.play_modes));
+        const tags = unique(games.flatMap((game) => game.derived_tags));
+        const released = games.filter((game) => !game.coming_soon).length;
+        const freeCount = games.filter((game) => game.is_free).length;
+        const officialSites = games.filter((game) => game.official_website).length;
+
+        document.querySelector('.metrics').innerHTML = [
+          [games.length, t.metrics[0]],
+          [families.length, t.metrics[1]],
+          [released, t.metrics[2]],
+          [officialSites, t.metrics[3]],
+        ].map(([value, label]) => `<div class="metric"><strong>${value}</strong><span>${label}</span></div>`).join('');
+        for (const select of [controls.family, controls.genre, controls.mode, controls.tag]) select.length = 1;
+        families.forEach(([key]) => option(controls.family, key));
+        genres.forEach((value) => option(controls.genre, value));
+        modes.forEach((value) => option(controls.mode, value));
+        tags.forEach((value) => option(controls.tag, value));
+        document.querySelector('.ontology').innerHTML = families.map(([key, description]) => `<div class="node"><b>${key}</b><span>${description}</span></div>`).join('');
+        document.querySelector('.family-chart').innerHTML = families.map(([key]) => {
+          const count = games.filter((game) => game.design_family === key).length;
+          const width = `${Math.max(4, Math.round((count / games.length) * 100))}%`;
+          return `<div class="bar"><span>${key}</span><span class="rail"><span class="fill" style="--value:${width}"></span></span><span>${count}</span></div>`;
+        }).join('');
+        controls.price.textContent = t.free(freeCount, games.length - freeCount);
+        grid.innerHTML = games.map((game) => `
+          <article class="game-card" data-search="${`${game.title} ${game.developers.join(' ')} ${game.publishers.join(' ')} ${game.derived_tags.join(' ')}`.toLowerCase()}" data-family="${game.design_family}" data-genres="${game.official_genres.join('|')}" data-modes="${game.play_modes.join('|')}" data-tags="${game.derived_tags.join('|')}">
+            <img src="${game.image}" alt="${game.title} official image" loading="lazy" />
+            <div class="game-body">
+              <h3 class="game-title">${game.title}</h3>
+              <div class="meta">
+                <span>${game.release_date} / ${t.image}: ${game.visible_date_from_image}</span>
+                <span>${game.developers.join(', ') || t.developerUnknown}</span>
+                ${game.original_designer ? `<span>${t.designer}: ${game.original_designer.join(', ')}</span>` : ''}
+                <span>${game.design_family}</span>
+              </div>
+              <div class="chips">${[...game.play_modes, ...game.official_genres.slice(0, 3), ...game.derived_tags.slice(0, 4)].map(chip).join('')}</div>
+              <div class="card-links">
+                ${link(t.links.store, game.official_store)}
+                ${link(t.links.official, game.official_website)}
+                ${link(t.links.board, game.board_game_official)}
+                ${link(t.links.metadata, game.evidence.metadata_source)}
+              </div>
+            </div>
+          </article>`).join('');
+        document.querySelector('#evidence').innerHTML = t.evidence(library.schema, library.generated_at, library.ontology.source_policy);
+        applyFilters();
+      }
+      for (const element of [controls.search, controls.family, controls.genre, controls.mode, controls.tag]) element.addEventListener('input', applyFilters);
+      document.querySelectorAll('[data-lang-button]').forEach((button) => {
+        button.addEventListener('click', () => {
+          currentLang = button.dataset.langButton;
+          applyLanguage();
+        });
+      });
+      controls.reset.addEventListener('click', () => {
+        controls.search.value = '';
+        controls.family.value = '';
+        controls.genre.value = '';
+        controls.mode.value = '';
+        controls.tag.value = '';
+        applyFilters();
+      });
+      applyLanguage();
+      fetch('data/game-library.json').then((response) => response.json()).then(render);
+    </script>
+  </body>
+</html>

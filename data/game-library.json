@@ -1,0 +1,2018 @@
+{
+  "schema": "kafka.game-library.v1",
+  "generated_at": "2026-06-29",
+  "ontology": {
+    "version": "2026-06-29",
+    "source_policy": "Primary metadata from Steam Store appdetails/store pages; screenshots only identify candidate titles and visible dates.",
+    "entities": [
+      "Game",
+      "Creator",
+      "Publisher",
+      "PlatformStore",
+      "ImageAsset",
+      "Genre",
+      "PlayMode",
+      "DesignFamily",
+      "Evidence"
+    ],
+    "hierarchy": {
+      "Game": [
+        "identity",
+        "release",
+        "creators",
+        "official_assets",
+        "classification",
+        "evidence"
+      ],
+      "classification": [
+        "design_family",
+        "official_genres",
+        "play_modes",
+        "derived_tags"
+      ]
+    },
+    "design_families": {
+      "cards-and-tabletop": "Cards, deck construction, tabletop rules, or competitive card economies.",
+      "systems-and-strategy": "Automation, colony, survival, city, or strategic systems with compounding state.",
+      "puzzle-and-narrative": "Mystery, puzzle, visual novel, or choice-led interpretation loops.",
+      "vr-and-embodied": "VR, rhythm, spatial, or embodied interaction as the central affordance.",
+      "social-and-coop": "Cooperation, deduction, party, or communication-first play.",
+      "action-and-adventure": "Action, exploration, platforming, shooting, or adventure-first progression."
+    }
+  },
+  "games": [
+    {
+      "id": "steam-1502080",
+      "appid": 1502080,
+      "title": "ALTDEUS: Beyond Chronos",
+      "visible_date_from_image": "2021年2月18日",
+      "visible_identification_confidence": "High",
+      "release_date": "Feb 18, 2021",
+      "coming_soon": false,
+      "developers": [
+        "MyDearest Inc."
+      ],
+      "publishers": [
+        "MyDearest Inc."
+      ],
+      "official_genres": [
+        "Adventure"
+      ],
+      "play_modes": [
+        "solo",
+        "vr"
+      ],
+      "design_family": "puzzle-and-narrative",
+      "derived_tags": [
+        "vr",
+        "visual-novel",
+        "sci-fi"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1502080/",
+      "official_website": "https://altdeus.com/en/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1502080/header.jpg?t=1729483513",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1502080",
+        "store_page": "https://store.steampowered.com/app/1502080/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-916440",
+      "appid": 916440,
+      "title": "Anno 1800",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "High",
+      "release_date": "Apr 16, 2019",
+      "coming_soon": false,
+      "developers": [
+        "Ubisoft Mainz"
+      ],
+      "publishers": [
+        "Ubisoft"
+      ],
+      "official_genres": [
+        "Simulation",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo",
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "city-builder",
+        "economy",
+        "strategy"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/916440/",
+      "official_website": "https://www.anno-union.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/916440/header.jpg?t=1778771290",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=916440",
+        "store_page": "https://store.steampowered.com/app/916440/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-583950",
+      "appid": 583950,
+      "title": "Artifact",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "High",
+      "release_date": "Nov 28, 2018",
+      "coming_soon": false,
+      "developers": [
+        "Valve"
+      ],
+      "publishers": [
+        "Valve"
+      ],
+      "official_genres": [
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo",
+        "multiplayer"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "card-battler",
+        "competitive",
+        "valve"
+      ],
+      "is_free": true,
+      "official_store": "https://store.steampowered.com/app/583950/",
+      "official_website": null,
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/583950/header.jpg?t=1677266975",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=583950",
+        "store_page": "https://store.steampowered.com/app/583950/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-620980",
+      "appid": 620980,
+      "title": "Beat Saber",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "High",
+      "release_date": "May 21, 2019",
+      "coming_soon": false,
+      "developers": [
+        "Beat Games"
+      ],
+      "publishers": [
+        "Beat Games"
+      ],
+      "official_genres": [
+        "Indie"
+      ],
+      "play_modes": [
+        "solo",
+        "multiplayer",
+        "vr"
+      ],
+      "design_family": "vr-and-embodied",
+      "derived_tags": [
+        "vr",
+        "rhythm",
+        "fitness"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/620980/",
+      "official_website": "http://beatsaber.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/620980/3067664ee110fed550f5c3a1b74340cabd7d53f0/header.jpg?t=1782391636",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=620980",
+        "store_page": "https://store.steampowered.com/app/620980/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1422440",
+      "appid": 1422440,
+      "title": "Cataclismo",
+      "visible_date_from_image": "2025年3月21日",
+      "visible_identification_confidence": "High",
+      "release_date": "Mar 20, 2025",
+      "coming_soon": false,
+      "developers": [
+        "Digital Sun"
+      ],
+      "publishers": [
+        "Hooded Horse"
+      ],
+      "official_genres": [
+        "Simulation",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "tower-defense",
+        "strategy",
+        "building"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1422440/",
+      "official_website": null,
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1422440/header.jpg?t=1779785657",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1422440",
+        "store_page": "https://store.steampowered.com/app/1422440/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1188930",
+      "appid": 1188930,
+      "title": "Chrono Ark",
+      "visible_date_from_image": "2024年5月3日",
+      "visible_identification_confidence": "High",
+      "release_date": "May 2, 2024",
+      "coming_soon": false,
+      "developers": [
+        "Al Fine"
+      ],
+      "publishers": [
+        "Al Fine"
+      ],
+      "official_genres": [
+        "Adventure",
+        "Indie",
+        "RPG",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "deckbuilder",
+        "rpg",
+        "roguelike"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1188930/",
+      "official_website": null,
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1188930/header.jpg?t=1751505204",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1188930",
+        "store_page": "https://store.steampowered.com/app/1188930/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-809140",
+      "appid": 809140,
+      "title": "Cliff Empire",
+      "visible_date_from_image": "2019年8月7日",
+      "visible_identification_confidence": "High",
+      "release_date": "Aug 6, 2019",
+      "coming_soon": false,
+      "developers": [
+        "Lion's Shade"
+      ],
+      "publishers": [
+        "Lion's Shade"
+      ],
+      "official_genres": [
+        "Indie",
+        "Simulation",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "city-builder",
+        "management",
+        "simulation"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/809140/",
+      "official_website": "http://www.lionsshade.com/cliff-empire",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/809140/header.jpg?t=1730412886",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=809140",
+        "store_page": "https://store.steampowered.com/app/809140/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-2213190",
+      "appid": 2213190,
+      "title": "DEATH NOTE Killer Within",
+      "visible_date_from_image": "2024年11月6日",
+      "visible_identification_confidence": "High",
+      "release_date": "Nov 5, 2024",
+      "coming_soon": false,
+      "developers": [
+        "Grounding Inc."
+      ],
+      "publishers": [
+        "Bandai Namco Entertainment Inc."
+      ],
+      "official_genres": [
+        "Casual",
+        "Strategy"
+      ],
+      "play_modes": [
+        "multiplayer"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "social-deduction",
+        "pvp",
+        "anime"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/2213190/",
+      "official_website": null,
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2213190/header.jpg?t=1756245780",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=2213190",
+        "store_page": "https://store.steampowered.com/app/2213190/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1222140",
+      "appid": 1222140,
+      "title": "Detroit: Become Human",
+      "visible_date_from_image": "2020年6月18日",
+      "visible_identification_confidence": "High",
+      "release_date": "Jun 18, 2020",
+      "coming_soon": false,
+      "developers": [
+        "Quantic Dream"
+      ],
+      "publishers": [
+        "Quantic Dream"
+      ],
+      "official_genres": [
+        "Action",
+        "Adventure"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "puzzle-and-narrative",
+      "derived_tags": [
+        "narrative",
+        "choice-driven",
+        "cinematic"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1222140/",
+      "official_website": "https://www.quanticdream.com/detroit-become-human",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222140/header.jpg?t=1667468479",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1222140",
+        "store_page": "https://store.steampowered.com/app/1222140/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1131620",
+      "appid": 1131620,
+      "title": "Dominion",
+      "visible_date_from_image": "2024年2月2日",
+      "visible_identification_confidence": "High",
+      "release_date": "Feb 1, 2024",
+      "coming_soon": false,
+      "developers": [
+        "Temple Gates Games"
+      ],
+      "publishers": [
+        "Temple Gates Games"
+      ],
+      "original_designer": [
+        "Donald X. Vaccarino"
+      ],
+      "board_game_publisher": [
+        "Rio Grande Games"
+      ],
+      "official_genres": [
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo",
+        "multiplayer"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "deckbuilder",
+        "tabletop",
+        "card-battler",
+        "competitive",
+        "donald-x-vaccarino"
+      ],
+      "is_free": true,
+      "official_store": "https://store.steampowered.com/app/1131620/",
+      "official_website": "https://www.templegatesgames.com/press/sheet.php?p=Dominion",
+      "board_game_official": "https://www.riograndegames.com/games/dominion/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1131620/header.jpg",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1131620",
+        "store_page": "https://store.steampowered.com/app/1131620/",
+        "official_digital_press_sheet": "https://www.templegatesgames.com/press/sheet.php?p=Dominion",
+        "official_board_game_page": "https://www.riograndegames.com/games/dominion/",
+        "correction_note": "Replaces the misidentified Dominions 6 entry with Dominion, the Donald X. Vaccarino deck-building card game.",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata_and_official_publisher_page"
+      }
+    },
+    {
+      "id": "steam-1046930",
+      "appid": 1046930,
+      "title": "Dota Underlords",
+      "visible_date_from_image": "2019年6月21日",
+      "visible_identification_confidence": "High",
+      "release_date": "Jun 20, 2019",
+      "coming_soon": false,
+      "developers": [
+        "Valve"
+      ],
+      "publishers": [
+        "Valve"
+      ],
+      "official_genres": [
+        "Casual",
+        "Strategy",
+        "Free To Play"
+      ],
+      "play_modes": [
+        "solo",
+        "multiplayer"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "auto-battler",
+        "strategy",
+        "competitive"
+      ],
+      "is_free": true,
+      "official_store": "https://store.steampowered.com/app/1046930/",
+      "official_website": "http://underlords.com/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1046930/header.jpg?t=1745368592",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1046930",
+        "store_page": "https://store.steampowered.com/app/1046930/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-427520",
+      "appid": 427520,
+      "title": "Factorio",
+      "visible_date_from_image": "2020年8月14日",
+      "visible_identification_confidence": "High",
+      "release_date": "Aug 14, 2020",
+      "coming_soon": false,
+      "developers": [
+        "Wube Software LTD."
+      ],
+      "publishers": [
+        "Wube Software LTD."
+      ],
+      "official_genres": [
+        "Casual",
+        "Indie",
+        "Simulation",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo",
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "automation",
+        "factory",
+        "logistics"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/427520/",
+      "official_website": "https://www.factorio.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/427520/header.jpg?t=1763986204",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=427520",
+        "store_page": "https://store.steampowered.com/app/427520/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1436990",
+      "appid": 1436990,
+      "title": "Feign",
+      "visible_date_from_image": "2025年11月22日",
+      "visible_identification_confidence": "High",
+      "release_date": "Nov 22, 2025",
+      "coming_soon": false,
+      "developers": [
+        "Teneke Kafalar"
+      ],
+      "publishers": [
+        "Teneke Kafalar",
+        "Kwalee"
+      ],
+      "official_genres": [
+        "Casual",
+        "Indie",
+        "RPG",
+        "Strategy"
+      ],
+      "play_modes": [
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "social-deduction",
+        "party",
+        "pvp"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1436990/",
+      "official_website": null,
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1436990/ea1f16a2328bd5dbcac07ea50003ef1e7b8853d5/header.jpg?t=1770719776",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1436990",
+        "store_page": "https://store.steampowered.com/app/1436990/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1145360",
+      "appid": 1145360,
+      "title": "Hades",
+      "visible_date_from_image": "2020年9月17日",
+      "visible_identification_confidence": "High",
+      "release_date": "Sep 17, 2020",
+      "coming_soon": false,
+      "developers": [
+        "Supergiant Games"
+      ],
+      "publishers": [
+        "Supergiant Games"
+      ],
+      "official_genres": [
+        "Action",
+        "Indie",
+        "RPG"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "action-and-adventure",
+      "derived_tags": [
+        "roguelike",
+        "action",
+        "mythology"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1145360/",
+      "official_website": "http://www.supergiantgames.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1145360/header.jpg?t=1758127023",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1145360",
+        "store_page": "https://store.steampowered.com/app/1145360/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-546560",
+      "appid": 546560,
+      "title": "Half-Life: Alyx",
+      "visible_date_from_image": "2020年3月24日",
+      "visible_identification_confidence": "High",
+      "release_date": "Mar 23, 2020",
+      "coming_soon": false,
+      "developers": [
+        "Valve"
+      ],
+      "publishers": [
+        "Valve"
+      ],
+      "official_genres": [
+        "Action",
+        "Adventure"
+      ],
+      "play_modes": [
+        "solo",
+        "vr"
+      ],
+      "design_family": "puzzle-and-narrative",
+      "derived_tags": [
+        "vr",
+        "shooter",
+        "narrative"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/546560/",
+      "official_website": "http://half-life.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/546560/header.jpg?t=1762986588",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=546560",
+        "store_page": "https://store.steampowered.com/app/546560/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1883000",
+      "appid": 1883000,
+      "title": "HEART of CROWN Online",
+      "visible_date_from_image": "2025年12月18日",
+      "visible_identification_confidence": "High",
+      "release_date": "Dec 18, 2025",
+      "coming_soon": false,
+      "developers": [
+        "illuCalab",
+        "FLIPFLOPs",
+        "quziralab."
+      ],
+      "publishers": [
+        "PLAYISM"
+      ],
+      "official_genres": [
+        "Indie",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo",
+        "multiplayer"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "deckbuilder",
+        "tabletop",
+        "competitive"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1883000/",
+      "official_website": "https://pc.heartofcrown.com/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1883000/0cec7020bd7363569637b60e327fee5ba47f32b4/header.jpg?t=1779086903",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1883000",
+        "store_page": "https://store.steampowered.com/app/1883000/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1092790",
+      "appid": 1092790,
+      "title": "Inscryption",
+      "visible_date_from_image": "2021年10月20日",
+      "visible_identification_confidence": "High",
+      "release_date": "Oct 19, 2021",
+      "coming_soon": false,
+      "developers": [
+        "Daniel Mullins Games"
+      ],
+      "publishers": [
+        "Devolver Digital"
+      ],
+      "official_genres": [
+        "Adventure",
+        "Indie",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "deckbuilder",
+        "horror",
+        "puzzle"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1092790/",
+      "official_website": "https://www.inscryption-game.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1092790/header.jpg?t=1777572925",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1092790",
+        "store_page": "https://store.steampowered.com/app/1092790/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-2071500",
+      "appid": 2071500,
+      "title": "Islands of Insight",
+      "visible_date_from_image": "2024年2月14日",
+      "visible_identification_confidence": "High",
+      "release_date": "Feb 13, 2024",
+      "coming_soon": false,
+      "developers": [
+        "Lunarch Studios"
+      ],
+      "publishers": [
+        "Behaviour Interactive Inc."
+      ],
+      "official_genres": [
+        "Adventure",
+        "Indie"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "puzzle-and-narrative",
+      "derived_tags": [
+        "puzzle",
+        "open-world",
+        "exploration"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/2071500/",
+      "official_website": "https://www.islandsofinsight.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2071500/header.jpg?t=1730308751",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=2071500",
+        "store_page": "https://store.steampowered.com/app/2071500/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1426210",
+      "appid": 1426210,
+      "title": "It Takes Two",
+      "visible_date_from_image": "2021年3月26日",
+      "visible_identification_confidence": "High",
+      "release_date": "Mar 25, 2021",
+      "coming_soon": false,
+      "developers": [
+        "Hazelight Studios"
+      ],
+      "publishers": [
+        "Electronic Arts"
+      ],
+      "official_genres": [
+        "Action",
+        "Adventure"
+      ],
+      "play_modes": [
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "social-and-coop",
+      "derived_tags": [
+        "co-op",
+        "platformer",
+        "adventure"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1426210/",
+      "official_website": "https://www.ea.com/games/it-takes-two",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1426210/header.jpg?t=1777395376",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1426210",
+        "store_page": "https://store.steampowered.com/app/1426210/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1973530",
+      "appid": 1973530,
+      "title": "Limbus Company",
+      "visible_date_from_image": "2023年2月27日",
+      "visible_identification_confidence": "High",
+      "release_date": "Feb 26, 2023",
+      "coming_soon": false,
+      "developers": [
+        "ProjectMoon"
+      ],
+      "publishers": [
+        "ProjectMoon"
+      ],
+      "official_genres": [
+        "Free To Play"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "action-and-adventure",
+      "derived_tags": [
+        "gacha",
+        "rpg",
+        "live-service"
+      ],
+      "is_free": true,
+      "official_store": "https://store.steampowered.com/app/1973530/",
+      "official_website": "https://limbuscompany.kr/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1973530/header.jpg?t=1782421211",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1973530",
+        "store_page": "https://store.steampowered.com/app/1973530/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1462570",
+      "appid": 1462570,
+      "title": "Lost in Random™",
+      "visible_date_from_image": "2021年9月10日",
+      "visible_identification_confidence": "High",
+      "release_date": "Sep 10, 2021",
+      "coming_soon": false,
+      "developers": [
+        "Zoink",
+        "Thunderful"
+      ],
+      "publishers": [
+        "Electronic Arts"
+      ],
+      "official_genres": [
+        "Action",
+        "Adventure",
+        "Indie"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "action-and-adventure",
+      "derived_tags": [
+        "action-adventure",
+        "dice",
+        "fairytale"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1462570/",
+      "official_website": "https://www.ea.com/games/lost-in-random",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1462570/header.jpg?t=1777395303",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1462570",
+        "store_page": "https://store.steampowered.com/app/1462570/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-2141910",
+      "appid": 2141910,
+      "title": "Magic: The Gathering Arena",
+      "visible_date_from_image": "2023年5月24日",
+      "visible_identification_confidence": "High",
+      "release_date": "May 23, 2023",
+      "coming_soon": false,
+      "developers": [
+        "Wizards of the Coast"
+      ],
+      "publishers": [
+        "Wizards of the Coast"
+      ],
+      "official_genres": [
+        "Strategy",
+        "Free To Play"
+      ],
+      "play_modes": [
+        "multiplayer"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "card-battler",
+        "competitive",
+        "live-service"
+      ],
+      "is_free": true,
+      "official_store": "https://store.steampowered.com/app/2141910/",
+      "official_website": "https://magic.wizards.com/mtgarena",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2141910/9f66da4afbfe00c7219276bb2ef824e30cf60634/header.jpg?t=1779401659",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=2141910",
+        "store_page": "https://store.steampowered.com/app/2141910/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-412020",
+      "appid": 412020,
+      "title": "Metro Exodus",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "High",
+      "release_date": "Feb 14, 2020",
+      "coming_soon": false,
+      "developers": [
+        "4A Games"
+      ],
+      "publishers": [
+        "Deep Silver"
+      ],
+      "official_genres": [
+        "Action"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "shooter",
+        "survival",
+        "narrative"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/412020/",
+      "official_website": "http://metrothegame.com/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/412020/header.jpg?t=1750772804",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=412020",
+        "store_page": "https://store.steampowered.com/app/412020/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1102190",
+      "appid": 1102190,
+      "title": "Monster Train",
+      "visible_date_from_image": "2020年5月22日",
+      "visible_identification_confidence": "High",
+      "release_date": "May 21, 2020",
+      "coming_soon": false,
+      "developers": [
+        "Shiny Shoe"
+      ],
+      "publishers": [
+        "Good Shepherd Entertainment"
+      ],
+      "official_genres": [
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo",
+        "multiplayer"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "deckbuilder",
+        "roguelike",
+        "strategy"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1102190/",
+      "official_website": "https://www.themonstertrain.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1102190/header.jpg?t=1779381275",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1102190",
+        "store_page": "https://store.steampowered.com/app/1102190/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-2742830",
+      "appid": 2742830,
+      "title": "Monster Train 2",
+      "visible_date_from_image": "2025年5月21日",
+      "visible_identification_confidence": "High",
+      "release_date": "May 21, 2025",
+      "coming_soon": false,
+      "developers": [
+        "Shiny Shoe"
+      ],
+      "publishers": [
+        "Big Fan Games"
+      ],
+      "official_genres": [
+        "Indie",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "deckbuilder",
+        "roguelike",
+        "strategy"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/2742830/",
+      "official_website": null,
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2742830/header.jpg?t=1779381469",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=2742830",
+        "store_page": "https://store.steampowered.com/app/2742830/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-919370",
+      "appid": 919370,
+      "title": "Overdungeon",
+      "visible_date_from_image": "2019年8月23日",
+      "visible_identification_confidence": "High",
+      "release_date": "Aug 22, 2019",
+      "coming_soon": false,
+      "developers": [
+        "Pocketpair"
+      ],
+      "publishers": [
+        "Pocketpair"
+      ],
+      "official_genres": [
+        "Action",
+        "Adventure",
+        "Casual",
+        "Indie",
+        "RPG",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "deckbuilder",
+        "real-time",
+        "roguelike"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/919370/",
+      "official_website": "https://www.pocketpair.jp/overdungeon",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/919370/header.jpg?t=1735195241",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=919370",
+        "store_page": "https://store.steampowered.com/app/919370/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-457140",
+      "appid": 457140,
+      "title": "Oxygen Not Included",
+      "visible_date_from_image": "2019年7月31日",
+      "visible_identification_confidence": "High",
+      "release_date": "Jul 30, 2019",
+      "coming_soon": false,
+      "developers": [
+        "Klei Entertainment"
+      ],
+      "publishers": [
+        "Klei Entertainment"
+      ],
+      "official_genres": [
+        "Indie",
+        "Simulation"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "colony-sim",
+        "survival",
+        "automation"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/457140/",
+      "official_website": "https://www.kleientertainment.com/games/oxygen-not-included",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/457140/header.jpg?t=1781198471",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=457140",
+        "store_page": "https://store.steampowered.com/app/457140/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1623730",
+      "appid": 1623730,
+      "title": "Palworld",
+      "visible_date_from_image": "2024年1月19日",
+      "visible_identification_confidence": "High",
+      "release_date": "Jan 18, 2024",
+      "coming_soon": false,
+      "developers": [
+        "Pocketpair"
+      ],
+      "publishers": [
+        "Pocketpair"
+      ],
+      "official_genres": [
+        "Action",
+        "Adventure",
+        "Indie",
+        "RPG",
+        "Early Access"
+      ],
+      "play_modes": [
+        "solo",
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "survival",
+        "creature-collection",
+        "co-op"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1623730/",
+      "official_website": "https://www.pocketpair.jp/palworld",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1623730/058bd87dc17a7179e07c446aa64d0574ca43ab9d/header.jpg?t=1782406665",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1623730",
+        "store_page": "https://store.steampowered.com/app/1623730/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-739630",
+      "appid": 739630,
+      "title": "Phasmophobia",
+      "visible_date_from_image": "2020年9月19日",
+      "visible_identification_confidence": "High",
+      "release_date": "Sep 18, 2020",
+      "coming_soon": false,
+      "developers": [
+        "Kinetic Games"
+      ],
+      "publishers": [
+        "Kinetic Games"
+      ],
+      "official_genres": [
+        "Action",
+        "Indie",
+        "Early Access"
+      ],
+      "play_modes": [
+        "solo",
+        "co-op",
+        "multiplayer",
+        "vr"
+      ],
+      "design_family": "puzzle-and-narrative",
+      "derived_tags": [
+        "co-op",
+        "horror",
+        "investigation"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/739630/",
+      "official_website": "http://kineticgames.co.uk/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/739630/c227a2855aba60f3657bc0c3a46515b8c41fb2b6/header.jpg?t=1782311537",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=739630",
+        "store_page": "https://store.steampowered.com/app/739630/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-971620",
+      "appid": 971620,
+      "title": "Puyo Puyo Champions",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "High",
+      "release_date": "May 6, 2019",
+      "coming_soon": false,
+      "developers": [
+        "Sonic Team"
+      ],
+      "publishers": [
+        "SEGA"
+      ],
+      "official_genres": [
+        "Casual"
+      ],
+      "play_modes": [
+        "solo",
+        "multiplayer"
+      ],
+      "design_family": "puzzle-and-narrative",
+      "derived_tags": [
+        "puzzle",
+        "competitive",
+        "arcade"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/971620/",
+      "official_website": null,
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/971620/header.jpg?t=1769706695",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=971620",
+        "store_page": "https://store.steampowered.com/app/971620/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-2519830",
+      "appid": 2519830,
+      "title": "Resonite",
+      "visible_date_from_image": "2023年10月7日",
+      "visible_identification_confidence": "High",
+      "release_date": "Oct 6, 2023",
+      "coming_soon": false,
+      "developers": [
+        "Yellow Dog Man Studios",
+        "Frooxius"
+      ],
+      "publishers": [
+        "Yellow Dog Man Studios"
+      ],
+      "official_genres": [
+        "Casual",
+        "Indie",
+        "Free To Play",
+        "Early Access"
+      ],
+      "play_modes": [
+        "solo",
+        "co-op",
+        "multiplayer",
+        "vr"
+      ],
+      "design_family": "vr-and-embodied",
+      "derived_tags": [
+        "social-vr",
+        "creation",
+        "sandbox"
+      ],
+      "is_free": true,
+      "official_store": "https://store.steampowered.com/app/2519830/",
+      "official_website": "https://resonite.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2519830/header.jpg?t=1755733072",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=2519830",
+        "store_page": "https://store.steampowered.com/app/2519830/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1156990",
+      "appid": 1156990,
+      "title": "Return to Shironagasu Island",
+      "visible_date_from_image": "2020年3月3日",
+      "visible_identification_confidence": "High",
+      "release_date": "Mar 2, 2020",
+      "coming_soon": false,
+      "developers": [
+        "HYOGO ONIMUSHI"
+      ],
+      "publishers": [
+        "TABINOMICHI"
+      ],
+      "official_genres": [
+        "Adventure"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "puzzle-and-narrative",
+      "derived_tags": [
+        "visual-novel",
+        "mystery",
+        "investigation"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1156990/",
+      "official_website": "https://tabinomichi.jp/shironagasu/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1156990/header.jpg?t=1743423069",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1156990",
+        "store_page": "https://store.steampowered.com/app/1156990/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-526870",
+      "appid": 526870,
+      "title": "Satisfactory",
+      "visible_date_from_image": "2024年9月10日",
+      "visible_identification_confidence": "High",
+      "release_date": "Sep 10, 2024",
+      "coming_soon": false,
+      "developers": [
+        "Coffee Stain Studios"
+      ],
+      "publishers": [
+        "Coffee Stain Publishing"
+      ],
+      "official_genres": [
+        "Adventure",
+        "Indie",
+        "Simulation",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo",
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "automation",
+        "factory",
+        "open-world"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/526870/",
+      "official_website": "https://www.satisfactorygame.com/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/526870/header.jpg?t=1780413533",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=526870",
+        "store_page": "https://store.steampowered.com/app/526870/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-2584990",
+      "appid": 2584990,
+      "title": "Shadowverse: Worlds Beyond",
+      "visible_date_from_image": "2025年6月15日",
+      "visible_identification_confidence": "High",
+      "release_date": "Jun 14, 2025",
+      "coming_soon": false,
+      "developers": [
+        "Cygames, Inc."
+      ],
+      "publishers": [
+        "Cygames, Inc."
+      ],
+      "official_genres": [
+        "Casual",
+        "RPG",
+        "Strategy",
+        "Free To Play"
+      ],
+      "play_modes": [
+        "solo",
+        "multiplayer"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "card-battler",
+        "competitive",
+        "live-service"
+      ],
+      "is_free": true,
+      "official_store": "https://store.steampowered.com/app/2584990/",
+      "official_website": "https://shadowverse-wb.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2584990/bab5a90e2765d340ca3ba8553e1b0ee679176dda/header.jpg?t=1772083189",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=2584990",
+        "store_page": "https://store.steampowered.com/app/2584990/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-2162800",
+      "appid": 2162800,
+      "title": "shapez 2 - Factory",
+      "visible_date_from_image": "2026年4月23日",
+      "visible_identification_confidence": "High",
+      "release_date": "Apr 23, 2026",
+      "coming_soon": false,
+      "developers": [
+        "tobspr Games"
+      ],
+      "publishers": [
+        "tobspr Games",
+        "Gamirror Games"
+      ],
+      "official_genres": [
+        "Casual",
+        "Indie",
+        "Simulation",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "automation",
+        "factory",
+        "sandbox"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/2162800/",
+      "official_website": "https://shapez2.com/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2162800/680ac087db67c922e0340548103235a7529ec5df/header.jpg?t=1782393080",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=2162800",
+        "store_page": "https://store.steampowered.com/app/2162800/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1167140",
+      "appid": 1167140,
+      "title": "Siege Survival: Gloria Victis",
+      "visible_date_from_image": "2021年5月18日",
+      "visible_identification_confidence": "High",
+      "release_date": "May 18, 2021",
+      "coming_soon": false,
+      "developers": [
+        "Black Eye Games"
+      ],
+      "publishers": [
+        "Ravenscourt"
+      ],
+      "official_genres": [
+        "Adventure",
+        "Indie",
+        "RPG",
+        "Simulation",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "survival",
+        "management",
+        "siege"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1167140/",
+      "official_website": "https://ravenscourt.games/#",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1167140/header.jpg?t=1726631358",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1167140",
+        "store_page": "https://store.steampowered.com/app/1167140/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-646570",
+      "appid": 646570,
+      "title": "Slay the Spire",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "Medium",
+      "release_date": "Jan 23, 2019",
+      "coming_soon": false,
+      "developers": [
+        "Mega Crit"
+      ],
+      "publishers": [
+        "Mega Crit"
+      ],
+      "official_genres": [
+        "Indie",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "deckbuilder",
+        "roguelike",
+        "strategy"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/646570/",
+      "official_website": "https://www.megacrit.com/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/646570/header.jpg?t=1774015376",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=646570",
+        "store_page": "https://store.steampowered.com/app/646570/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-2868840",
+      "appid": 2868840,
+      "title": "Slay the Spire 2",
+      "visible_date_from_image": "2026年3月6日",
+      "visible_identification_confidence": "High",
+      "release_date": "Mar 5, 2026",
+      "coming_soon": false,
+      "developers": [
+        "Mega Crit"
+      ],
+      "publishers": [
+        "Mega Crit"
+      ],
+      "official_genres": [
+        "Indie",
+        "Strategy",
+        "Early Access"
+      ],
+      "play_modes": [
+        "solo",
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "deckbuilder",
+        "roguelike"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/2868840/",
+      "official_website": "https://megacrit.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2868840/b0958d387dc366211e0f353443710cfcf9fdb020/header.jpg?t=1776735385",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=2868840",
+        "store_page": "https://store.steampowered.com/app/2868840/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1962700",
+      "appid": 1962700,
+      "title": "Subnautica 2",
+      "visible_date_from_image": "2026年5月15日",
+      "visible_identification_confidence": "High",
+      "release_date": "May 14, 2026",
+      "coming_soon": false,
+      "developers": [
+        "Unknown Worlds Entertainment"
+      ],
+      "publishers": [
+        "Unknown Worlds Entertainment"
+      ],
+      "official_genres": [
+        "Action",
+        "Adventure",
+        "Early Access"
+      ],
+      "play_modes": [
+        "solo",
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "survival",
+        "exploration",
+        "co-op"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1962700/",
+      "official_website": "https://subnautica.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1962700/header.jpg?t=1780372044",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1962700",
+        "store_page": "https://store.steampowered.com/app/1962700/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1284190",
+      "appid": 1284190,
+      "title": "The Planet Crafter",
+      "visible_date_from_image": "2024年4月10日",
+      "visible_identification_confidence": "High",
+      "release_date": "Apr 10, 2024",
+      "coming_soon": false,
+      "developers": [
+        "Miju Games"
+      ],
+      "publishers": [
+        "Miju Games"
+      ],
+      "official_genres": [
+        "Adventure"
+      ],
+      "play_modes": [
+        "solo",
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "survival",
+        "crafting",
+        "terraforming"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1284190/",
+      "official_website": null,
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1284190/header.jpg?t=1782401581",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1284190",
+        "store_page": "https://store.steampowered.com/app/1284190/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-644930",
+      "appid": 644930,
+      "title": "They Are Billions",
+      "visible_date_from_image": "2019年6月19日",
+      "visible_identification_confidence": "High",
+      "release_date": "Jun 18, 2019",
+      "coming_soon": false,
+      "developers": [
+        "Numantian Games"
+      ],
+      "publishers": [
+        "Numantian Games"
+      ],
+      "official_genres": [
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "colony-sim",
+        "survival",
+        "strategy"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/644930/",
+      "official_website": "http://www.numantiangames.com/theyarebillions",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/644930/header.jpg?t=1595631876",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=644930",
+        "store_page": "https://store.steampowered.com/app/644930/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-790740",
+      "appid": 790740,
+      "title": "Tick Tock: A Tale for Two",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "High",
+      "release_date": "Mar 7, 2019",
+      "coming_soon": false,
+      "developers": [
+        "Other Tales Interactive"
+      ],
+      "publishers": [
+        "Other Tales Interactive"
+      ],
+      "official_genres": [
+        "Adventure",
+        "Casual",
+        "Indie"
+      ],
+      "play_modes": [
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "puzzle-and-narrative",
+      "derived_tags": [
+        "co-op",
+        "puzzle",
+        "communication"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/790740/",
+      "official_website": "https://www.ticktockthegame.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/790740/header.jpg?t=1770948904",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=790740",
+        "store_page": "https://store.steampowered.com/app/790740/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-720300",
+      "appid": 720300,
+      "title": "Toran",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "Medium",
+      "release_date": "Apr 18, 2019",
+      "coming_soon": false,
+      "developers": [
+        "Really Interactive"
+      ],
+      "publishers": [
+        "Really Interactive"
+      ],
+      "official_genres": [
+        "Adventure",
+        "Free To Play",
+        "Indie"
+      ],
+      "play_modes": [
+        "solo",
+        "vr"
+      ],
+      "design_family": "puzzle-and-narrative",
+      "derived_tags": [
+        "puzzle",
+        "adventure",
+        "indie"
+      ],
+      "is_free": true,
+      "official_store": "https://store.steampowered.com/app/720300/",
+      "official_website": "https://really-interactive.se/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/720300/header.jpg?t=1572862815",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=720300",
+        "store_page": "https://store.steampowered.com/app/720300/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1016920",
+      "appid": 1016920,
+      "title": "Unrailed!",
+      "visible_date_from_image": "2020年9月24日",
+      "visible_identification_confidence": "High",
+      "release_date": "Sep 23, 2020",
+      "coming_soon": false,
+      "developers": [
+        "Indoor Astronaut"
+      ],
+      "publishers": [
+        "Daedalic Entertainment"
+      ],
+      "official_genres": [
+        "Action",
+        "Casual",
+        "Indie"
+      ],
+      "play_modes": [
+        "solo",
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "social-and-coop",
+      "derived_tags": [
+        "co-op",
+        "party",
+        "rail-building"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1016920/",
+      "official_website": "https://unrailed-game.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1016920/header.jpg?t=1773842519",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1016920",
+        "store_page": "https://store.steampowered.com/app/1016920/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-2089600",
+      "appid": 2089600,
+      "title": "Urban Myth Dissolution Center",
+      "visible_date_from_image": "2024年10月14日",
+      "visible_identification_confidence": "High",
+      "release_date": "Feb 12, 2025",
+      "coming_soon": false,
+      "developers": [
+        "Hakababunko"
+      ],
+      "publishers": [
+        "SHUEISHA GAMES"
+      ],
+      "official_genres": [
+        "Adventure"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "puzzle-and-narrative",
+      "derived_tags": [
+        "mystery",
+        "visual-novel",
+        "investigation"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/2089600/",
+      "official_website": "https://shueisha-games.com/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2089600/header.jpg?t=1765525788",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=2089600",
+        "store_page": "https://store.steampowered.com/app/2089600/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-865360",
+      "appid": 865360,
+      "title": "We Were Here Together",
+      "visible_date_from_image": "2019年10月10日",
+      "visible_identification_confidence": "High",
+      "release_date": "Oct 10, 2019",
+      "coming_soon": false,
+      "developers": [
+        "Total Mayhem Games"
+      ],
+      "publishers": [
+        "Total Mayhem Games"
+      ],
+      "official_genres": [
+        "Adventure",
+        "Casual",
+        "Indie"
+      ],
+      "play_modes": [
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "puzzle-and-narrative",
+      "derived_tags": [
+        "co-op",
+        "puzzle",
+        "communication"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/865360/",
+      "official_website": "http://totalmayhemgames.com/we-were-here-together",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/865360/header.jpg?t=1764330773",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=865360",
+        "store_page": "https://store.steampowered.com/app/865360/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1811990",
+      "appid": 1811990,
+      "title": "Wildfrost",
+      "visible_date_from_image": "2023年4月12日",
+      "visible_identification_confidence": "High",
+      "release_date": "Apr 12, 2023",
+      "coming_soon": false,
+      "developers": [
+        "Deadpan Games",
+        "Gaziter"
+      ],
+      "publishers": [
+        "Chucklefish"
+      ],
+      "official_genres": [
+        "Indie",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "deckbuilder",
+        "roguelike",
+        "tactics"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1811990/",
+      "official_website": "http://wildfrostgame.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1811990/dd2032e0f2caab9c6ba560ab988cdec8d1ab3f24/header.jpg?t=1778084209",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1811990",
+        "store_page": "https://store.steampowered.com/app/1811990/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-1449850",
+      "appid": 1449850,
+      "title": "Yu-Gi-Oh! Master Duel",
+      "visible_date_from_image": "2022年1月19日",
+      "visible_identification_confidence": "High",
+      "release_date": "Jan 18, 2022",
+      "coming_soon": false,
+      "developers": [
+        "KONAMI"
+      ],
+      "publishers": [
+        "KONAMI"
+      ],
+      "official_genres": [
+        "Simulation",
+        "Strategy",
+        "Free To Play"
+      ],
+      "play_modes": [
+        "solo",
+        "multiplayer"
+      ],
+      "design_family": "cards-and-tabletop",
+      "derived_tags": [
+        "card-battler",
+        "competitive",
+        "live-service"
+      ],
+      "is_free": true,
+      "official_store": "https://store.steampowered.com/app/1449850/",
+      "official_website": "https://www.konami.com/yugioh/masterduel/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1449850/6ad0cd0c355a0072e2492c3c4d17e615ac085c02/header.jpg?t=1782230436",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1449850",
+        "store_page": "https://store.steampowered.com/app/1449850/",
+        "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    }
+  ],
+  "corrections": [
+    {
+      "date": "2026-06-29",
+      "action": "replace",
+      "from": "Dominions 6 - Rise of the Pantokrator",
+      "to": "Dominion",
+      "reason": "Screenshot title is Dominion, the Donald X. Vaccarino deck-building card game; Dominions 6 was a false name match."
+    },
+    {
+      "date": "2026-06-29",
+      "action": "remove",
+      "titles": [
+        "TOUHOU GENSOU MAHJONG",
+        "Tales of the Shire: A The Lord of The Rings™ Game",
+        "The Past Within"
+      ],
+      "reason": "User audit marked these image identifications as incorrect or too uncertain."
+    }
+  ]
+}
