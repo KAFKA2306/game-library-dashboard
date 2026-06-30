@@ -2,6 +2,7 @@
 
 Static GitHub Pages dashboard for a 48-title game library.
 
+- Live GitHub Pages: https://kafka2306.github.io/game-library-dashboard/
 - Data: `data/game-library.json`
 - Sources: Steam Store app metadata, Temple Gates Games, Rio Grande Games
 - Dashboard: `index.html`
