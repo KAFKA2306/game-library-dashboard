@@ -1,0 +1,78 @@
+project:
+  id: kafka:game-library-dashboard
+  name: Game Library Dashboard
+  repository: https://github.com/KAFKA2306/game-library-dashboard
+  pages: https://kafka2306.github.io/game-library-dashboard/
+  version: 0.1.0
+  updated: 2026-07-30
+  core_ontology: https://raw.githubusercontent.com/KAFKA2306/know/main/ontology/causal-evidence-core.yaml
+  schema: https://raw.githubusercontent.com/KAFKA2306/know/main/ontology/project.schema.json
+
+purpose:
+  problem: Maintain a source-traceable catalog of owned or tracked games and expose consistent classification and discovery views.
+  intended_decisions: [include, update, merge, flag_conflict, remove]
+  success_conditions:
+    - Each title has stable identity, platform or edition context, and named metadata sources.
+    - Official genres and play modes remain distinct from derived design-family tags.
+    - Duplicate titles and conflicting metadata are explicitly resolved or flagged.
+  falsification_conditions:
+    - Different editions or platforms are silently merged.
+    - Derived tags are represented as official publisher metadata.
+    - A catalog record lacks source or retrieval provenance.
+
+scope:
+  included: [games, editions, platforms, publishers, genres, play modes, design families, source records, dashboard views]
+  excluded: [unsupported ownership claims, copied commercial assets, unattributed classifications]
+  temporal: Release, source retrieval, catalog update, and verification times are explicit.
+  abstraction_level: Personal game-library catalog and evidence-backed classification dashboard.
+
+competency_questions:
+  - What title, edition, and platform does each record identify?
+  - Which fields are official metadata and which are derived classifications?
+  - Which sources support player count, genre, modes, and release details?
+  - Are duplicate or conflicting records visible?
+  - Does the deployed dashboard match the validated dataset?
+
+domain_mapping:
+  System: GameLibraryCatalogSystem
+  State: [catalog record state, classification state, conflict state, publication state]
+  Action: [acquire metadata, normalize identity, classify, merge, flag conflict, publish]
+  Process: [source collection, entity resolution, ontology mapping, JSON generation, dashboard deployment]
+  Observation: [store metadata, publisher metadata, catalog record, build result, deployed page]
+  Model: [identity normalization, design-family ontology, tag derivation rules]
+  Requirement: [stable identity, source attribution, official-derived separation, conflict handling, deployment integrity]
+  Claim: [title identity, genre, play mode, design family, catalog inclusion]
+  Evidence: [source URL, source field, retrieval time, transformation rule, dataset hash]
+  Decision: [include, update, merge, flag_conflict, remove]
+
+claims_and_evidence:
+  assertion_types: [ReportedFact, DatabaseObservation, DerivedClassification, Assumption, DecisionAssertion]
+  required_evidence:
+    ReportedFact: [publisher or store source, field, retrieval time]
+    DatabaseObservation: [provider, record ID, field]
+    DerivedClassification: [rule ID, upstream fields, ontology version]
+    DecisionAssertion: [record IDs, reason, reviewer or process]
+  unknown_policy: Missing identity, source, or classification rule produces UNKNOWN or flag_conflict rather than an inferred value.
+
+decision_rules:
+  - id: include-record
+    when: Stable identity and at least one attributable source are present.
+    result: include
+  - id: derived-tag
+    when: A versioned rule maps source fields to a design-family or derived tag.
+    result: accepted_derived_classification
+  - id: identity-conflict
+    when: Edition, platform, or title identity cannot be reconciled.
+    result: flag_conflict
+
+provenance:
+  sources: [Steam Store metadata, publisher sources, game-specific official sources, reviewed catalog entries]
+  generated_artifacts: [game-library JSON, indexes, dashboard HTML, audit reports]
+  agents: [metadata collector, normalizer, classifier, static-site build, GitHub Actions]
+  lineage: Each normalized and derived field links to source record, retrieval time, transformation rule, and ontology version.
+
+validation:
+  structural: Validate IDs, required fields, source records, URLs, and dataset uniqueness.
+  semantic: Separate official fields from derived design classifications and preserve edition and platform boundaries.
+  evidence: Verify source-field lineage, classification rules, conflict records, and dataset hash.
+  publication: The deployed dashboard must match the validated game-library dataset and documented Pages URL.
