@@ -1,29 +1,87 @@
-# Game Library Dashboard
+# Game Library Dashboard — ゲーム所蔵一覧
 
-Static GitHub Pages dashboard for a 48-title game library.
+**公開サイト:** https://kafka2306.github.io/game-library-dashboard/
 
-- Live GitHub Pages: https://kafka2306.github.io/game-library-dashboard/
-- Data: `data/game-library.json`
-- Sources: Steam Store app metadata, Temple Gates Games, Rio Grande Games
-- Dashboard: `index.html`
+所有・管理している48タイトルのゲーム情報を、静的なGitHub Pagesダッシュボードとして表示するプロジェクトです。
 
-## 因果・証拠オントロジー
+タイトル、プラットフォーム、公式ジャンル、プレイモード、デザイン上の系統、派生タグを分けて保存し、異なる版やプラットフォームを自動的に同じ商品として統合しません。
 
-上位システムは `GameLibraryCatalogSystem` です。
+## できること
+
+- 所蔵ゲームを一覧表示
+- タイトル、ジャンル、プレイモードで確認
+- 英語・日本語表示を切り替え
+- 公式メタデータと独自分類を区別
+- データの出典と取得時点を保持
+- GitHub Pagesで静的に公開
+
+## 主なファイル
+
+| ファイル | 内容 |
+| --- | --- |
+| `data/game-library.json` | ゲームライブラリの正規化データ |
+| `index.html` | 公開ダッシュボード |
+| `ontology/project.yaml` | データ取得・分類・公開の意味モデル |
+| `.github/workflows/` | GitHub Pages公開処理 |
+
+## データの情報源
+
+- Steam Storeのアプリ情報
+- Temple Gates Gamesの公開情報
+- Rio Grande Gamesの公開情報
+- 各タイトル・出版社の公式情報
+
+取得元の値と、ダッシュボード上で生成した分類を混ぜません。
+
+## データ処理の流れ
 
 ```text
-公式・ストアのメタデータ
-→ タイトル／版／プラットフォームの同定
-→ 正規化
-→ 派生分類
-→ 重複・競合判定
-→ データセット生成
-→ ダッシュボード公開
+公式サイト・ストアのメタデータ
+  → タイトル・版・プラットフォームを同定
+  → 表記と項目を正規化
+  → デザイン系統や派生タグを追加
+  → 重複・競合・欠損を判定
+  → JSONデータセットを生成
+  → ダッシュボードへ公開
 ```
 
-公式ジャンルとプレイモードは、デザインファミリーや派生タグとは別の主張型として保存します。異なる版やプラットフォームを自動統合せず、出典、取得時刻、変換規則が欠ける値は `UNKNOWN` または `flag_conflict` とします。
+## 分類の考え方
+
+次の項目は別の意味を持ちます。
+
+- 公式ジャンル
+- 公式に示されたプレイモード
+- プラットフォーム
+- ゲームの版・エディション
+- デザインファミリー
+- システムが生成した派生タグ
+
+出典、取得時刻、変換規則が欠ける値は`UNKNOWN`または`flag_conflict`として扱います。
+
+機械可読な定義:
 
 - [プロジェクト・オントロジー](ontology/project.yaml)
 - [共通因果・証拠オントロジー](https://github.com/KAFKA2306/know/blob/main/ontology/causal-evidence-core.yaml)
 
-The detailed ontology groups games by design family, official genres, play modes, and derived tags while preserving provenance and identity boundaries.
+## ローカル確認
+
+静的サイトのため、簡易HTTPサーバーから確認できます。
+
+```bash
+python -m http.server 8000
+```
+
+ブラウザで次を開きます。
+
+```text
+http://localhost:8000
+```
+
+## 注意
+
+- 48タイトルはREADME監査時点のデータセット件数です。最新件数は`data/game-library.json`を正としてください
+- ストア上の配信状況、価格、対応OSは変更される可能性があります
+- 同名タイトルでも版・プラットフォームが異なる場合があります
+- ゲーム名、画像、説明などの権利は各権利者に帰属します
+
+**README最終監査:** 2026-08-01
