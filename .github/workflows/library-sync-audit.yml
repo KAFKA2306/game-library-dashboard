@@ -1,0 +1,32 @@
+name: Library sync audit
+
+on:
+  push:
+    paths:
+      - "data/game-library.json"
+      - "data/library-sync-queue.json"
+      - "data/recommendation-candidates.json"
+      - "scripts/audit_library_sync.py"
+      - ".github/workflows/library-sync-audit.yml"
+  pull_request:
+    paths:
+      - "data/game-library.json"
+      - "data/library-sync-queue.json"
+      - "data/recommendation-candidates.json"
+      - "scripts/audit_library_sync.py"
+      - ".github/workflows/library-sync-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate library reconciliation state
+        run: python scripts/audit_library_sync.py

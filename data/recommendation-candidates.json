@@ -1,0 +1,41 @@
+{
+  "schema": "kafka.game-recommendations.v1",
+  "generated_at": "2026-08-09",
+  "policy": "Recommendations are not holdings. Ownership must stay UNKNOWN until a library source confirms it. Official facts and derived recommendation rationale are stored separately.",
+  "candidates": [
+    {
+      "appid": 1222700,
+      "title": "A Way Out",
+      "ownership_status": "UNKNOWN",
+      "official": {
+        "developer": "Hazelight Studios",
+        "publisher": "Electronic Arts",
+        "release_date": "2018-03-23",
+        "play_modes": ["co-op-only", "online-co-op", "shared-split-screen-co-op"],
+        "official_store": "https://store.steampowered.com/app/1222700/A_Way_Out/",
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1222700"
+      },
+      "derived": {
+        "recommendation_context": "next-two-player-coop-candidate",
+        "why_shortlisted": ["two-player-only", "story-driven", "varied-cooperative-gameplay"]
+      }
+    },
+    {
+      "appid": 1538550,
+      "title": "LEGO Voyagers",
+      "ownership_status": "UNKNOWN",
+      "official": {
+        "developer": "Light Brick Studio",
+        "publisher": "Annapurna Interactive",
+        "release_date": "2025-09-15",
+        "play_modes": ["two-player-co-op", "local-co-op", "online-co-op", "friends-pass"],
+        "official_store": "https://store.steampowered.com/app/1538550/LEGO_Voyagers/",
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1538550"
+      },
+      "derived": {
+        "recommendation_context": "next-two-player-coop-candidate",
+        "why_shortlisted": ["two-player-co-op", "low-friction-local-or-online-play", "friend-pass"]
+      }
+    }
+  ]
+}
