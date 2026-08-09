@@ -1,0 +1,154 @@
+{
+  "schema": "kafka.game-library-sync.v1",
+  "generated_at": "2026-08-09",
+  "canonical_snapshot": {
+    "path": "data/game-library.json",
+    "generated_at": "2026-06-29"
+  },
+  "observation": {
+    "source_type": "user_supplied_steam_library_screenshot",
+    "observed_at": "2026-08-09",
+    "visible_all_games_count": 141,
+    "policy": "Screenshot text may identify candidates only. A candidate becomes append-ready only after its Steam Store primary source has been verified. Software, demos, recommendations, and confirmed holdings remain separate concepts."
+  },
+  "status_definitions": {
+    "APPEND_READY": "Visible game title is absent from the canonical snapshot and its Steam primary metadata has been verified.",
+    "VERIFY_HOLDING": "The screenshot establishes only a demo/ambiguous holding; do not infer ownership of the full game.",
+    "SOFTWARE_SEPARATE": "Visible Steam software/tool; do not count as a game holding."
+  },
+  "entries": [
+    {
+      "appid": 2001120,
+      "observed_title": "Split Fiction",
+      "canonical_title": "Split Fiction",
+      "product_kind": "game",
+      "status": "APPEND_READY",
+      "developer": "Hazelight Studios",
+      "publisher": "Electronic Arts",
+      "release_date": "2025-03-06",
+      "official_store": "https://store.steampowered.com/app/2001120/Split_Fiction/",
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=2001120"
+    },
+    {
+      "appid": 1225570,
+      "observed_title": "Unravel Two",
+      "canonical_title": "Unravel Two",
+      "product_kind": "game",
+      "status": "APPEND_READY",
+      "developer": "Coldwood Interactive",
+      "publisher": "Electronic Arts",
+      "release_date": "2018-06-09",
+      "official_store": "https://store.steampowered.com/app/1225570/Unravel_Two/",
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1225570"
+    },
+    {
+      "appid": 461040,
+      "observed_title": "PICO PARK:Classic Edition",
+      "canonical_title": "PICO PARK:Classic Edition",
+      "product_kind": "game",
+      "status": "APPEND_READY",
+      "developer": "TECOPARK",
+      "publisher": "TECOPARK",
+      "release_date": "2016-04-28",
+      "official_store": "https://store.steampowered.com/app/461040/PICO_PARKClassic_Edition/",
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=461040"
+    },
+    {
+      "appid": 3241660,
+      "observed_title": "R.E.P.O.",
+      "canonical_title": "R.E.P.O.",
+      "product_kind": "game",
+      "status": "APPEND_READY",
+      "developer": "semiwork",
+      "publisher": "semiwork",
+      "release_date": "2025-02-26",
+      "official_store": "https://store.steampowered.com/app/3241660/REPO/",
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=3241660"
+    },
+    {
+      "appid": 1336490,
+      "observed_title": "Against the Storm",
+      "canonical_title": "Against the Storm",
+      "product_kind": "game",
+      "status": "APPEND_READY",
+      "developer": "Eremite Games",
+      "publisher": "Hooded Horse",
+      "release_date": "2023-12-08",
+      "official_store": "https://store.steampowered.com/app/1336490/Against_the_Storm/",
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1336490"
+    },
+    {
+      "appid": 1062090,
+      "observed_title": "Timberborn",
+      "canonical_title": "Timberborn",
+      "product_kind": "game",
+      "status": "APPEND_READY",
+      "developer": "Mechanistry",
+      "publisher": "Mechanistry",
+      "release_date": "2026-03-12",
+      "official_store": "https://store.steampowered.com/app/1062090/Timberborn/",
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1062090"
+    },
+    {
+      "appid": 606150,
+      "observed_title": "Moonlighter",
+      "canonical_title": "Moonlighter",
+      "product_kind": "game",
+      "status": "APPEND_READY",
+      "developer": "Digital Sun",
+      "publisher": "11 bit studios",
+      "release_date": "2018-05-29",
+      "official_store": "https://store.steampowered.com/app/606150/Moonlighter/",
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=606150"
+    },
+    {
+      "appid": 438100,
+      "observed_title": "VRChat",
+      "canonical_title": "VRChat",
+      "product_kind": "game",
+      "status": "APPEND_READY",
+      "developer": "VRChat Inc.",
+      "publisher": "VRChat Inc.",
+      "release_date": "2017-02-01",
+      "official_store": "https://store.steampowered.com/app/438100/VRChat/",
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=438100"
+    },
+    {
+      "appid": 2427700,
+      "observed_title": "Backpack Battles Demo",
+      "canonical_title": "Backpack Battles",
+      "product_kind": "demo_observation",
+      "status": "VERIFY_HOLDING",
+      "developer": "PlayWithFurcifer",
+      "publisher": "IndieArk / Shochiku (Japan)",
+      "release_date": "2025-06-13",
+      "holding_note": "The screenshot shows the demo. Do not infer ownership of the paid game.",
+      "official_store": "https://store.steampowered.com/app/2427700/Backpack_Battles/",
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=2427700"
+    },
+    {
+      "appid": 1173510,
+      "observed_title": "XSOverlay",
+      "canonical_title": "XSOverlay",
+      "product_kind": "software",
+      "status": "SOFTWARE_SEPARATE",
+      "developer": "Xiexe",
+      "publisher": "Xiexe",
+      "release_date": "2020-03-03",
+      "official_store": "https://store.steampowered.com/app/1173510/XSOverlay/",
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1173510"
+    },
+    {
+      "appid": 1009850,
+      "observed_title": "OVR Advanced Settings",
+      "canonical_title": "OVR Advanced Settings",
+      "product_kind": "software",
+      "status": "SOFTWARE_SEPARATE",
+      "developer": "OVRAS Team",
+      "publisher": "OVRAS Team",
+      "release_date": "2016-09-11",
+      "official_store": "https://store.steampowered.com/app/1009850/OVR_Advanced_Settings/",
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1009850"
+    }
+  ]
+}
