@@ -1,0 +1,20 @@
+{
+  "schema": "kafka.catalog-config.v1",
+  "catalog_id": "sample-community-library",
+  "display_name": "サンプル・コミュニティゲームライブラリ",
+  "locale": "ja-JP",
+  "contact_url": "https://github.com/KAFKA2306/game-library-dashboard/issues/3",
+  "enabled_filters": [
+    "title",
+    "genre",
+    "play_mode",
+    "platform",
+    "availability",
+    "language",
+    "local_tag"
+  ],
+  "brand": {
+    "logo_url": ""
+  },
+  "rights_statement": "ゲーム名・公式メタデータ等の権利は各権利者に帰属します。施設所蔵状態はサンプル入力であり、実店舗の在庫を示しません。"
+}
