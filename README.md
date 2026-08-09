@@ -4,7 +4,7 @@
 
 公式情報で照合したゲーム情報を、静的なGitHub Pagesダッシュボードとして表示するプロジェクトです。現行の `data/game-library.json` は48件の正準スナップショットですが、2026-08-09に確認したSteam画面では `すべてのゲーム (141)` が表示されているため、件数を手で上書きせず差分監査キューで段階的に突合します。
 
-タイトル、プラットフォーム、公式ジャンル、プレイモード、デザイン上の系統、派生タグを分けて保存し、異なる版やプラットフォームを自動的に同じ商品として統合しません。デモ、Steamソフトウェア、未所有の推薦候補も所蔵ゲームへ混ぜません。
+タイトル、プラットフォーム、公式ジャンル、プレイモード、デザイン上の系統、派生タグを分けて保存し、異なる版やプラットフォームを自動的に同じ商品として統合しません。デモ、Steamソフトウェア、プレイ履歴、未所有の推薦候補も所蔵ゲームへ混ぜません。
 
 ## できること
 
@@ -14,7 +14,7 @@
 - 公式メタデータと独自分類を区別
 - データの出典と取得時点を保持
 - GitHub Pagesで静的に公開
-- Steam画面と正準データの差分を、ゲーム / デモ / ソフトウェア / 推薦候補に分離して監査
+- Steam画面と正準データの差分を、ゲーム / デモ / ソフトウェア / プレイ履歴 / 推薦候補に分離して監査
 - 顧客提供の所蔵CSVから、正準メタデータと混ぜずに白ラベル静的カタログを生成
 
 ## 主なファイル
@@ -22,7 +22,7 @@
 | ファイル | 内容 |
 | --- | --- |
 | `data/game-library.json` | ゲームライブラリの正規化済み正準スナップショット |
-| `data/library-sync-queue.json` | Steam画面から同定し、正準データとの差分として管理する監査キュー |
+| `data/library-sync-queue.json` | Steam画面・ユーザー確認から得た候補を、証拠種別ごとに分離して管理する監査キュー |
 | `data/recommendation-candidates.json` | 所蔵と分離した次回プレイ候補 |
 | `scripts/audit_library_sync.py` | 差分キュー・推薦候補・正準データの決定論的監査 |
 | `docs/library-sync.md` | Steam Library突合ルールと完了条件 |
@@ -36,12 +36,13 @@
 
 ## Steam Library差分監査
 
-2026-08-09のSteam画面と `data/game-library.json` の正準スナップショットを突合し、一次情報まで確認できた差分を `data/library-sync-queue.json` に保存しています。
+2026-08-09のSteam画面、会話で確認できたプレイ履歴、`data/game-library.json` の正準スナップショットを区別して監査し、一次情報まで確認できた候補を `data/library-sync-queue.json` に保存しています。
 
 現在のキュー:
 
-- `APPEND_READY`: 8件 — Split Fiction / Unravel Two / PICO PARK:Classic Edition / R.E.P.O. / Against the Storm / Timberborn / Moonlighter / VRChat
-- `VERIFY_HOLDING`: 1件 — Backpack Battles Demo。デモ表示から有料版の所有を推測しない
+- `APPEND_READY`: 7件 — Unravel Two / PICO PARK:Classic Edition / R.E.P.O. / Against the Storm / Timberborn / Moonlighter / VRChat
+- `PLAYED_CONFIRMED_HOLDING_UNKNOWN`: 1件 — Split Fiction。プレイ済みであることは確認済みだが、このSteamアカウントの所蔵であるとは推測しない
+- `VERIFY_HOLDING`: 1件 — Backpack Battles Demo。画面からDemoのAppIDは確定できないため、有料版AppIDをDemo自身のIDとして扱わず、有料版所有も推測しない
 - `SOFTWARE_SEPARATE`: 2件 — XSOverlay / OVR Advanced Settings。ゲーム件数へ混ぜない
 - 推薦候補: A Way Out / LEGO Voyagers。`ownership_status=UNKNOWN` のまま所蔵とは分離
 
@@ -62,7 +63,7 @@ CIでも `.github/workflows/library-sync-audit.yml` が同じ検査を実行し�
 - Rio Grande Gamesの公開情報
 - 各タイトル・出版社の公式情報
 
-取得元の値と、ダッシュボード上で生成した分類を混ぜません。Steam画面は候補同定にだけ使い、正式名称・AppID・開発元・発売日等は公式ストア/一次情報で再確認します。
+取得元の値と、ダッシュボード上で生成した分類を混ぜません。Steam画面は候補同定にだけ使い、正式名称・AppID・開発元・発売日等は公式ストア/一次情報で再確認します。ユーザーの「プレイ済み」という確認はプレイ履歴として保存し、Steam所蔵の証拠へ自動昇格させません。
 
 ## データ処理の流れ
 
@@ -76,15 +77,15 @@ CIでも `.github/workflows/library-sync-audit.yml` が同じ検査を実行し�
   → ダッシュボードへ公開
 ```
 
-Steam画面からの追加候補は、直接この流れへ投入せず次の境界を通します。
+Steam画面や会話からの追加候補は、直接この流れへ投入せず次の境界を通します。
 
 ```text
-Steam画面
-  → 候補同定
+Steam画面 / ユーザーのプレイ確認
+  → 証拠種別を保持した候補同定
   → 公式Steam AppID / Store情報で再照合
-  → game / demo / software / recommendation を分離
+  → game / demo / software / play-history / recommendation を分離
   → library-sync queue
-  → 正準schemaを満たした項目だけ game-library.json へ統合
+  → 所蔵根拠と正準schemaを満たした項目だけ game-library.json へ統合
 ```
 
 ## 白ラベル所蔵カタログ
@@ -112,6 +113,7 @@ python scripts/build_white_label_catalog.py \
 - デザインファミリー
 - システムが生成した派生タグ
 - Steam画面で見えた候補
+- ユーザーが確認したプレイ履歴
 - 正準所蔵
 - デモ / ソフトウェア
 - 未所有の推薦候補
@@ -142,6 +144,7 @@ http://localhost:8000
 
 - 48件は `data/game-library.json` の現行正準スナップショット件数であり、Steam画面に見える全所蔵数を意味しません
 - Steam画面の `すべてのゲーム (141)` は突合対象の観測値であり、そのまま正準DB件数へ転記しません
+- 「プレイ済み」は「このSteamアカウントが所有・所蔵している」と同義ではありません
 - ストア上の配信状況、価格、対応OSは変更される可能性があります
 - 同名タイトルでも版・プラットフォームが異なる場合があります
 - デモ表示から有料版の所有を推測しません

@@ -11,7 +11,12 @@ CANONICAL = ROOT / "data" / "game-library.json"
 QUEUE = ROOT / "data" / "library-sync-queue.json"
 RECOMMENDATIONS = ROOT / "data" / "recommendation-candidates.json"
 
-ALLOWED_QUEUE_STATUS = {"APPEND_READY", "VERIFY_HOLDING", "SOFTWARE_SEPARATE"}
+ALLOWED_QUEUE_STATUS = {
+    "APPEND_READY",
+    "PLAYED_CONFIRMED_HOLDING_UNKNOWN",
+    "VERIFY_HOLDING",
+    "SOFTWARE_SEPARATE",
+}
 
 
 def load(path: Path) -> dict:
@@ -45,29 +50,55 @@ def main() -> None:
         fail("canonical game-library.json contains duplicate appids")
 
     queue_entries = queue["entries"]
-    queue_appids = [entry["appid"] for entry in queue_entries]
+    queue_appids = [entry["appid"] for entry in queue_entries if entry.get("appid") is not None]
     if len(queue_appids) != len(set(queue_appids)):
-        fail("library-sync-queue.json contains duplicate appids")
+        fail("library-sync-queue.json contains duplicate non-null appids")
 
     for entry in queue_entries:
-        appid = entry["appid"]
+        appid = entry.get("appid")
         status = entry["status"]
+        source = entry.get("candidate_source")
         if status not in ALLOWED_QUEUE_STATUS:
-            fail(f"appid {appid}: unsupported queue status {status}")
-        check_store_url(appid, entry["official_store"])
-        check_metadata_url(appid, entry["metadata_source"])
+            fail(f"entry {entry['observed_title']}: unsupported queue status {status}")
+        if not source:
+            fail(f"entry {entry['observed_title']}: candidate_source is required")
+
+        if appid is not None:
+            check_store_url(appid, entry["official_store"])
+            check_metadata_url(appid, entry["metadata_source"])
 
         if status == "APPEND_READY":
+            if appid is None:
+                fail(f"entry {entry['observed_title']}: APPEND_READY requires a verified appid")
+            if source != "user_supplied_steam_library_screenshot":
+                fail(f"appid {appid}: APPEND_READY requires screenshot candidate evidence")
             if entry["product_kind"] != "game":
                 fail(f"appid {appid}: APPEND_READY is only valid for games")
             if appid in canonical_appids:
                 fail(f"appid {appid}: APPEND_READY already exists in canonical data; mark it merged/remove it")
 
+        if status == "PLAYED_CONFIRMED_HOLDING_UNKNOWN":
+            if entry["product_kind"] != "game":
+                fail(f"entry {entry['observed_title']}: played-confirmed status is only valid for games")
+            if source != "user_confirmed_played_in_conversation":
+                fail(f"entry {entry['observed_title']}: played-confirmed status requires user confirmation provenance")
+            if not entry.get("holding_note"):
+                fail(f"entry {entry['observed_title']}: played-confirmed status requires holding_note")
+
         if status == "SOFTWARE_SEPARATE" and entry["product_kind"] != "software":
             fail(f"appid {appid}: SOFTWARE_SEPARATE must use product_kind=software")
 
-        if status == "VERIFY_HOLDING" and not entry.get("holding_note"):
-            fail(f"appid {appid}: VERIFY_HOLDING requires holding_note")
+        if status == "VERIFY_HOLDING":
+            if not entry.get("holding_note"):
+                fail(f"entry {entry['observed_title']}: VERIFY_HOLDING requires holding_note")
+            if entry["product_kind"] == "demo_observation":
+                if appid is not None:
+                    fail(f"entry {entry['observed_title']}: unverified demo AppID must remain null")
+                related_appid = entry.get("related_full_game_appid")
+                if related_appid is None:
+                    fail(f"entry {entry['observed_title']}: demo observation requires related_full_game_appid")
+                check_store_url(related_appid, entry["related_full_game_store"])
+                check_metadata_url(related_appid, entry["related_full_game_metadata_source"])
 
     recommendation_appids = []
     for candidate in recommendations["candidates"]:
@@ -87,12 +118,14 @@ def main() -> None:
         fail(f"same appid cannot be both library-sync queue and recommendation-only candidate: {sorted(overlap)}")
 
     append_ready = sum(entry["status"] == "APPEND_READY" for entry in queue_entries)
+    played_unknown = sum(entry["status"] == "PLAYED_CONFIRMED_HOLDING_UNKNOWN" for entry in queue_entries)
     verify_holding = sum(entry["status"] == "VERIFY_HOLDING" for entry in queue_entries)
     software = sum(entry["status"] == "SOFTWARE_SEPARATE" for entry in queue_entries)
     print(
         "library-sync audit passed: "
         f"canonical={len(canonical_appids)} "
         f"append_ready={append_ready} "
+        f"played_holding_unknown={played_unknown} "
         f"verify_holding={verify_holding} "
         f"software_separate={software} "
         f"recommendations={len(recommendation_appids)}"
