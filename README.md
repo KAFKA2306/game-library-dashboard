@@ -2,7 +2,7 @@
 
 **公開サイト:** https://kafka2306.github.io/game-library-dashboard/
 
-公式情報で照合したゲーム情報を、静的なGitHub Pagesダッシュボードとして表示するプロジェクトです。現行の `data/game-library.json` は48件の正準スナップショットですが、2026-08-09に確認したSteam画面では `すべてのゲーム (141)` が表示されているため、件数を手で上書きせず差分監査キューで段階的に突合します。
+公式情報で照合したゲーム情報を、静的なGitHub Pagesダッシュボードとして表示するプロジェクトです。最新件数は手書きせず `data/game-library.json` を正とします。2026-08-09に確認したSteam画面では `すべてのゲーム (141)` が表示されているため、この表示値をそのまま正準件数へ転記せず、差分監査キューで段階的に突合します。
 
 タイトル、プラットフォーム、公式ジャンル、プレイモード、デザイン上の系統、派生タグを分けて保存し、異なる版やプラットフォームを自動的に同じ商品として統合しません。デモ、Steamソフトウェア、プレイ履歴、未所有の推薦候補も所蔵ゲームへ混ぜません。
 
@@ -15,6 +15,7 @@
 - データの出典と取得時点を保持
 - GitHub Pagesで静的に公開
 - Steam画面と正準データの差分を、ゲーム / デモ / ソフトウェア / プレイ履歴 / 推薦候補に分離して監査
+- 一次情報確認済みの差分候補だけを正準データへ昇格
 - 顧客提供の所蔵CSVから、正準メタデータと混ぜずに白ラベル静的カタログを生成
 
 ## 主なファイル
@@ -25,6 +26,7 @@
 | `data/library-sync-queue.json` | Steam画面・ユーザー確認から得た候補を、証拠種別ごとに分離して管理する監査キュー |
 | `data/recommendation-candidates.json` | 所蔵と分離した次回プレイ候補 |
 | `scripts/audit_library_sync.py` | 差分キュー・推薦候補・正準データの決定論的監査 |
+| `scripts/apply_library_sync.py` | `APPEND_READY` のみを公式Steam情報で再確認して正準データへ昇格 |
 | `docs/library-sync.md` | Steam Library突合ルールと完了条件 |
 | `index.html` | 公開ダッシュボード |
 | `ontology/project.yaml` | データ取得・分類・公開の意味モデル |
@@ -38,15 +40,24 @@
 
 2026-08-09のSteam画面、会話で確認できたプレイ履歴、`data/game-library.json` の正準スナップショットを区別して監査し、一次情報まで確認できた候補を `data/library-sync-queue.json` に保存しています。
 
-現在のキュー:
+2026-08-09バッチでは、Steam画面で同定でき公式情報を再確認した次の7件を `MERGED` として正準データへ追加しました。
 
-- `APPEND_READY`: 7件 — Unravel Two / PICO PARK:Classic Edition / R.E.P.O. / Against the Storm / Timberborn / Moonlighter / VRChat
-- `PLAYED_CONFIRMED_HOLDING_UNKNOWN`: 1件 — Split Fiction。プレイ済みであることは確認済みだが、このSteamアカウントの所蔵であるとは推測しない
-- `VERIFY_HOLDING`: 1件 — Backpack Battles Demo。画面からDemoのAppIDは確定できないため、有料版AppIDをDemo自身のIDとして扱わず、有料版所有も推測しない
-- `SOFTWARE_SEPARATE`: 2件 — XSOverlay / OVR Advanced Settings。ゲーム件数へ混ぜない
-- 推薦候補: A Way Out / LEGO Voyagers。`ownership_status=UNKNOWN` のまま所蔵とは分離
+- Unravel Two
+- PICO PARK:Classic Edition
+- R.E.P.O.
+- Against the Storm
+- Timberborn
+- Moonlighter
+- VRChat
 
-画面の `141` という表示値だけから不足93件等を機械的に作りません。完全突合にはSteam側の機械可読な所蔵一覧と、Issue #2で定義している Work / Edition / PlatformRelease / Holding の境界が必要です。
+そのほかの状態は分離したままです。
+
+- `PLAYED_CONFIRMED_HOLDING_UNKNOWN`: Split Fiction — プレイ済みであることは確認済みだが、このSteamアカウントの所蔵であるとは推測しない
+- `VERIFY_HOLDING`: Backpack Battles Demo — 画面からDemoのAppIDは確定できないため、有料版AppIDをDemo自身のIDとして扱わず、有料版所有も推測しない
+- `SOFTWARE_SEPARATE`: XSOverlay / OVR Advanced Settings — ゲーム件数へ混ぜない
+- 推薦候補: A Way Out / LEGO Voyagers — `ownership_status=UNKNOWN` のまま所蔵とは分離
+
+画面の `141` という表示値だけから不足件数を機械的に作りません。完全突合にはSteam側の機械可読な所蔵一覧と、Issue #2で定義している Work / Edition / PlatformRelease / Holding の境界が必要です。
 
 監査は次で実行できます。
 
@@ -54,7 +65,14 @@
 python scripts/audit_library_sync.py
 ```
 
-CIでも `.github/workflows/library-sync-audit.yml` が同じ検査を実行します。
+`APPEND_READY` を正準データへ昇格する場合は次を実行します。
+
+```bash
+python scripts/apply_library_sync.py
+python scripts/audit_library_sync.py
+```
+
+CIでは `.github/workflows/library-sync-audit.yml` が整合性を検査します。
 
 ## データの情報源
 
@@ -142,7 +160,7 @@ http://localhost:8000
 
 ## 注意
 
-- 48件は `data/game-library.json` の現行正準スナップショット件数であり、Steam画面に見える全所蔵数を意味しません
+- 最新の正準件数は `data/game-library.json` を正とし、READMEへ手書きで固定しません
 - Steam画面の `すべてのゲーム (141)` は突合対象の観測値であり、そのまま正準DB件数へ転記しません
 - 「プレイ済み」は「このSteamアカウントが所有・所蔵している」と同義ではありません
 - ストア上の配信状況、価格、対応OSは変更される可能性があります
