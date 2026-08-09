@@ -13,6 +13,7 @@ RECOMMENDATIONS = ROOT / "data" / "recommendation-candidates.json"
 
 ALLOWED_QUEUE_STATUS = {
     "APPEND_READY",
+    "MERGED",
     "PLAYED_CONFIRMED_HOLDING_UNKNOWN",
     "VERIFY_HOLDING",
     "SOFTWARE_SEPARATE",
@@ -67,15 +68,19 @@ def main() -> None:
             check_store_url(appid, entry["official_store"])
             check_metadata_url(appid, entry["metadata_source"])
 
-        if status == "APPEND_READY":
+        if status in {"APPEND_READY", "MERGED"}:
             if appid is None:
-                fail(f"entry {entry['observed_title']}: APPEND_READY requires a verified appid")
+                fail(f"entry {entry['observed_title']}: {status} requires a verified appid")
             if source != "user_supplied_steam_library_screenshot":
-                fail(f"appid {appid}: APPEND_READY requires screenshot candidate evidence")
+                fail(f"appid {appid}: {status} requires screenshot candidate evidence")
             if entry["product_kind"] != "game":
-                fail(f"appid {appid}: APPEND_READY is only valid for games")
-            if appid in canonical_appids:
-                fail(f"appid {appid}: APPEND_READY already exists in canonical data; mark it merged/remove it")
+                fail(f"appid {appid}: {status} is only valid for games")
+
+        if status == "APPEND_READY" and appid in canonical_appids:
+            fail(f"appid {appid}: APPEND_READY already exists in canonical data; mark it MERGED")
+
+        if status == "MERGED" and appid not in canonical_appids:
+            fail(f"appid {appid}: MERGED must exist in canonical data")
 
         if status == "PLAYED_CONFIRMED_HOLDING_UNKNOWN":
             if entry["product_kind"] != "game":
@@ -118,6 +123,7 @@ def main() -> None:
         fail(f"same appid cannot be both library-sync queue and recommendation-only candidate: {sorted(overlap)}")
 
     append_ready = sum(entry["status"] == "APPEND_READY" for entry in queue_entries)
+    merged = sum(entry["status"] == "MERGED" for entry in queue_entries)
     played_unknown = sum(entry["status"] == "PLAYED_CONFIRMED_HOLDING_UNKNOWN" for entry in queue_entries)
     verify_holding = sum(entry["status"] == "VERIFY_HOLDING" for entry in queue_entries)
     software = sum(entry["status"] == "SOFTWARE_SEPARATE" for entry in queue_entries)
@@ -125,6 +131,7 @@ def main() -> None:
         "library-sync audit passed: "
         f"canonical={len(canonical_appids)} "
         f"append_ready={append_ready} "
+        f"merged={merged} "
         f"played_holding_unknown={played_unknown} "
         f"verify_holding={verify_holding} "
         f"software_separate={software} "
