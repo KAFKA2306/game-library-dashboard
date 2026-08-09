@@ -15,7 +15,8 @@
     "APPEND_READY": "Game title is visibly identifiable in the supplied Steam library screenshot, is absent from the canonical snapshot, and its Steam Store primary metadata has been verified.",
     "PLAYED_CONFIRMED_HOLDING_UNKNOWN": "The user explicitly confirmed playing the game, but the supplied screenshot/inventory evidence does not establish that this Steam account owns or currently holds the app.",
     "VERIFY_HOLDING": "The screenshot establishes only a demo/ambiguous library item; do not infer ownership of the related paid game.",
-    "SOFTWARE_SEPARATE": "Visible Steam software/tool; do not count as a game holding."
+    "SOFTWARE_SEPARATE": "Visible Steam software/tool; do not count as a game holding.",
+    "MERGED": "The screenshot candidate has been promoted into data/game-library.json after official Steam metadata verification."
   },
   "entries": [
     {
@@ -37,91 +38,105 @@
       "observed_title": "Unravel Two",
       "canonical_title": "Unravel Two",
       "product_kind": "game",
-      "status": "APPEND_READY",
+      "status": "MERGED",
       "candidate_source": "user_supplied_steam_library_screenshot",
       "developer": "Coldwood Interactive",
       "publisher": "Electronic Arts",
       "release_date": "2018-06-09",
       "official_store": "https://store.steampowered.com/app/1225570/Unravel_Two/",
-      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1225570"
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1225570",
+      "merged_into": "data/game-library.json",
+      "merged_at": "2026-08-09"
     },
     {
       "appid": 461040,
       "observed_title": "PICO PARK:Classic Edition",
       "canonical_title": "PICO PARK:Classic Edition",
       "product_kind": "game",
-      "status": "APPEND_READY",
+      "status": "MERGED",
       "candidate_source": "user_supplied_steam_library_screenshot",
       "developer": "TECOPARK",
       "publisher": "TECOPARK",
       "release_date": "2016-04-28",
       "official_store": "https://store.steampowered.com/app/461040/PICO_PARKClassic_Edition/",
-      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=461040"
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=461040",
+      "merged_into": "data/game-library.json",
+      "merged_at": "2026-08-09"
     },
     {
       "appid": 3241660,
       "observed_title": "R.E.P.O.",
       "canonical_title": "R.E.P.O.",
       "product_kind": "game",
-      "status": "APPEND_READY",
+      "status": "MERGED",
       "candidate_source": "user_supplied_steam_library_screenshot",
       "developer": "semiwork",
       "publisher": "semiwork",
       "release_date": "2025-02-26",
       "official_store": "https://store.steampowered.com/app/3241660/REPO/",
-      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=3241660"
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=3241660",
+      "merged_into": "data/game-library.json",
+      "merged_at": "2026-08-09"
     },
     {
       "appid": 1336490,
       "observed_title": "Against the Storm",
       "canonical_title": "Against the Storm",
       "product_kind": "game",
-      "status": "APPEND_READY",
+      "status": "MERGED",
       "candidate_source": "user_supplied_steam_library_screenshot",
       "developer": "Eremite Games",
       "publisher": "Hooded Horse",
       "release_date": "2023-12-08",
       "official_store": "https://store.steampowered.com/app/1336490/Against_the_Storm/",
-      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1336490"
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1336490",
+      "merged_into": "data/game-library.json",
+      "merged_at": "2026-08-09"
     },
     {
       "appid": 1062090,
       "observed_title": "Timberborn",
       "canonical_title": "Timberborn",
       "product_kind": "game",
-      "status": "APPEND_READY",
+      "status": "MERGED",
       "candidate_source": "user_supplied_steam_library_screenshot",
       "developer": "Mechanistry",
       "publisher": "Mechanistry",
       "release_date": "2026-03-12",
       "official_store": "https://store.steampowered.com/app/1062090/Timberborn/",
-      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1062090"
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1062090",
+      "merged_into": "data/game-library.json",
+      "merged_at": "2026-08-09"
     },
     {
       "appid": 606150,
       "observed_title": "Moonlighter",
       "canonical_title": "Moonlighter",
       "product_kind": "game",
-      "status": "APPEND_READY",
+      "status": "MERGED",
       "candidate_source": "user_supplied_steam_library_screenshot",
       "developer": "Digital Sun",
       "publisher": "11 bit studios",
       "release_date": "2018-05-29",
       "official_store": "https://store.steampowered.com/app/606150/Moonlighter/",
-      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=606150"
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=606150",
+      "merged_into": "data/game-library.json",
+      "merged_at": "2026-08-09"
     },
     {
       "appid": 438100,
       "observed_title": "VRChat",
       "canonical_title": "VRChat",
       "product_kind": "game",
-      "status": "APPEND_READY",
+      "status": "MERGED",
       "candidate_source": "user_supplied_steam_library_screenshot",
       "developer": "VRChat Inc.",
       "publisher": "VRChat Inc.",
       "release_date": "2017-02-01",
       "official_store": "https://store.steampowered.com/app/438100/VRChat/",
-      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=438100"
+      "metadata_source": "https://store.steampowered.com/api/appdetails?appids=438100",
+      "merged_into": "data/game-library.json",
+      "merged_at": "2026-08-09"
     },
     {
       "appid": null,

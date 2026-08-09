@@ -1,6 +1,6 @@
 {
   "schema": "kafka.game-library.v1",
-  "generated_at": "2026-06-29",
+  "generated_at": "2026-08-09",
   "ontology": {
     "version": "2026-06-29",
     "source_policy": "Primary metadata from Steam Store appdetails/store pages; screenshots only identify candidate titles and visible dates.",
@@ -41,6 +41,46 @@
     }
   },
   "games": [
+    {
+      "id": "steam-1336490",
+      "appid": 1336490,
+      "title": "Against the Storm",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "High",
+      "release_date": "Dec 8, 2023",
+      "coming_soon": false,
+      "developers": [
+        "Eremite Games"
+      ],
+      "publishers": [
+        "Hooded Horse"
+      ],
+      "official_genres": [
+        "Simulation",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "city-builder",
+        "roguelite",
+        "strategy"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1336490/Against_the_Storm/",
+      "official_website": "https://eremitegames.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1336490/fef12f582e624a021413bd07984132f016895789/header.jpg?t=1786149736",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1336490",
+        "store_page": "https://store.steampowered.com/app/1336490/Against_the_Storm/",
+        "fetched_at": "2026-08-09",
+        "candidate_source": "user_supplied_steam_library_screenshot",
+        "source_type": "official_store_metadata"
+      }
+    },
     {
       "id": "steam-1502080",
       "appid": 1502080,
@@ -1052,6 +1092,47 @@
       }
     },
     {
+      "id": "steam-606150",
+      "appid": 606150,
+      "title": "Moonlighter",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "High",
+      "release_date": "May 29, 2018",
+      "coming_soon": false,
+      "developers": [
+        "Digital Sun"
+      ],
+      "publishers": [
+        "11 bit studios"
+      ],
+      "official_genres": [
+        "Action",
+        "Adventure",
+        "Indie"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "action-and-adventure",
+      "derived_tags": [
+        "action-rpg",
+        "roguelite",
+        "shopkeeping"
+      ],
+      "is_free": true,
+      "official_store": "https://store.steampowered.com/app/606150/Moonlighter/",
+      "official_website": "http://www.moonlighterthegame.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/606150/8928bd4aa73d49a92099b07a85c21ad2d0141d58/header_alt_assets_8.jpg?t=1785952913",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=606150",
+        "store_page": "https://store.steampowered.com/app/606150/Moonlighter/",
+        "fetched_at": "2026-08-09",
+        "candidate_source": "user_supplied_steam_library_screenshot",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
       "id": "steam-919370",
       "appid": 919370,
       "title": "Overdungeon",
@@ -1221,6 +1302,48 @@
       }
     },
     {
+      "id": "steam-461040",
+      "appid": 461040,
+      "title": "PICO PARK:Classic Edition",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "High",
+      "release_date": "Apr 27, 2016",
+      "coming_soon": false,
+      "developers": [
+        "TECOPARK"
+      ],
+      "publishers": [
+        "TECOPARK"
+      ],
+      "official_genres": [
+        "Action",
+        "Casual",
+        "Indie"
+      ],
+      "play_modes": [
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "social-and-coop",
+      "derived_tags": [
+        "co-op",
+        "puzzle",
+        "party"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/461040/PICO_PARKClassic_Edition/",
+      "official_website": "http://picoparkgame.com/en/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/461040/6f1570451e61751e3995d42fa7d7f31f90756db0/header.jpg?t=1781624101",
+      "image_source": "Steam Store header image from official store page",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=461040",
+        "store_page": "https://store.steampowered.com/app/461040/PICO_PARKClassic_Edition/",
+        "fetched_at": "2026-08-09",
+        "candidate_source": "user_supplied_steam_library_screenshot",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
       "id": "steam-971620",
       "appid": 971620,
       "title": "Puyo Puyo Champions",
@@ -1256,6 +1379,48 @@
         "metadata_source": "https://store.steampowered.com/api/appdetails?appids=971620",
         "store_page": "https://store.steampowered.com/app/971620/",
         "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-3241660",
+      "appid": 3241660,
+      "title": "R.E.P.O.",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "High",
+      "release_date": "Feb 26, 2025",
+      "coming_soon": false,
+      "developers": [
+        "semiwork"
+      ],
+      "publishers": [
+        "semiwork"
+      ],
+      "official_genres": [
+        "Action",
+        "Early Access"
+      ],
+      "play_modes": [
+        "solo",
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "social-and-coop",
+      "derived_tags": [
+        "co-op",
+        "horror",
+        "physics"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/3241660/REPO/",
+      "official_website": null,
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3241660/1ea445e044a2d5b09cfa8291350b63ebed6e5741/header.jpg?t=1778158882",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=3241660",
+        "store_page": "https://store.steampowered.com/app/3241660/REPO/",
+        "fetched_at": "2026-08-09",
+        "candidate_source": "user_supplied_steam_library_screenshot",
         "source_type": "official_store_metadata"
       }
     },
@@ -1753,6 +1918,47 @@
       }
     },
     {
+      "id": "steam-1062090",
+      "appid": 1062090,
+      "title": "Timberborn",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "High",
+      "release_date": "Mar 12, 2026",
+      "coming_soon": false,
+      "developers": [
+        "Mechanistry"
+      ],
+      "publishers": [
+        "Mechanistry"
+      ],
+      "official_genres": [
+        "Indie",
+        "Simulation",
+        "Strategy"
+      ],
+      "play_modes": [
+        "solo"
+      ],
+      "design_family": "systems-and-strategy",
+      "derived_tags": [
+        "city-builder",
+        "colony-sim",
+        "automation"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1062090/Timberborn/",
+      "official_website": "https://mechanistry.com/",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1062090/eeb2babf15cbf4ebc175316a5d3e42a060f3d97c/header.jpg?t=1784023977",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1062090",
+        "store_page": "https://store.steampowered.com/app/1062090/Timberborn/",
+        "fetched_at": "2026-08-09",
+        "candidate_source": "user_supplied_steam_library_screenshot",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
       "id": "steam-720300",
       "appid": 720300,
       "title": "Toran",
@@ -1836,6 +2042,48 @@
       }
     },
     {
+      "id": "steam-1225570",
+      "appid": 1225570,
+      "title": "Unravel Two",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "High",
+      "release_date": "Jun 4, 2020",
+      "coming_soon": false,
+      "developers": [
+        "Coldwood Interactive"
+      ],
+      "publishers": [
+        "Electronic Arts"
+      ],
+      "official_genres": [
+        "Action",
+        "Adventure"
+      ],
+      "play_modes": [
+        "solo",
+        "co-op",
+        "multiplayer"
+      ],
+      "design_family": "social-and-coop",
+      "derived_tags": [
+        "co-op",
+        "puzzle-platformer",
+        "local-co-op"
+      ],
+      "is_free": false,
+      "official_store": "https://store.steampowered.com/app/1225570/Unravel_Two/",
+      "official_website": "https://www.ea.com/games/unravel/unravel-two",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1225570/header.jpg?t=1777389655",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=1225570",
+        "store_page": "https://store.steampowered.com/app/1225570/Unravel_Two/",
+        "fetched_at": "2026-08-09",
+        "candidate_source": "user_supplied_steam_library_screenshot",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
       "id": "steam-2089600",
       "appid": 2089600,
       "title": "Urban Myth Dissolution Center",
@@ -1870,6 +2118,53 @@
         "metadata_source": "https://store.steampowered.com/api/appdetails?appids=2089600",
         "store_page": "https://store.steampowered.com/app/2089600/",
         "fetched_at": "2026-06-29",
+        "source_type": "official_store_metadata"
+      }
+    },
+    {
+      "id": "steam-438100",
+      "appid": 438100,
+      "title": "VRChat",
+      "visible_date_from_image": "Unreadable",
+      "visible_identification_confidence": "High",
+      "release_date": "Feb 1, 2017",
+      "coming_soon": false,
+      "developers": [
+        "VRChat Inc."
+      ],
+      "publishers": [
+        "VRChat Inc."
+      ],
+      "official_genres": [
+        "Adventure",
+        "Casual",
+        "Massively Multiplayer",
+        "Simulation",
+        "Sports",
+        "Free To Play",
+        "Early Access"
+      ],
+      "play_modes": [
+        "co-op",
+        "multiplayer",
+        "vr"
+      ],
+      "design_family": "vr-and-embodied",
+      "derived_tags": [
+        "vr",
+        "social",
+        "user-generated-content"
+      ],
+      "is_free": true,
+      "official_store": "https://store.steampowered.com/app/438100/VRChat/",
+      "official_website": "http://www.vrchat.com",
+      "image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/438100/header.jpg?t=1762366454",
+      "image_source": "Steam CDN header image from appdetails metadata",
+      "evidence": {
+        "metadata_source": "https://store.steampowered.com/api/appdetails?appids=438100",
+        "store_page": "https://store.steampowered.com/app/438100/VRChat/",
+        "fetched_at": "2026-08-09",
+        "candidate_source": "user_supplied_steam_library_screenshot",
         "source_type": "official_store_metadata"
       }
     },
