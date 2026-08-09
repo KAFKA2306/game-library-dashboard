@@ -14,6 +14,7 @@
 - 公式メタデータと独自分類を区別
 - データの出典と取得時点を保持
 - GitHub Pagesで静的に公開
+- 顧客提供の所蔵CSVから、正準メタデータと混ぜずに白ラベル静的カタログを生成
 
 ## 主なファイル
 
@@ -22,7 +23,11 @@
 | `data/game-library.json` | ゲームライブラリの正規化データ |
 | `index.html` | 公開ダッシュボード |
 | `ontology/project.yaml` | データ取得・分類・公開の意味モデル |
-| `.github/workflows/` | GitHub Pages公開処理 |
+| `catalog-config.json` | 白ラベルカタログの表示・導線設定 |
+| `data/import-template.csv` | 顧客所蔵データの入力テンプレート |
+| `scripts/build_white_label_catalog.py` | `catalog.json` / `index.html` 生成器 |
+| `docs/business/white-label-library-catalog.md` | 無料sampleと導入PoCの境界 |
+| `.github/workflows/` | GitHub Pages公開・検証処理 |
 
 ## データの情報源
 
@@ -44,6 +49,20 @@
   → JSONデータセットを生成
   → ダッシュボードへ公開
 ```
+
+## 白ラベル所蔵カタログ
+
+`catalog-config.json` と顧客管理下のCSVを入力にすると、既存の正準データを参照する静的 `catalog.json` / `index.html` を生成できます。
+
+```bash
+python scripts/build_white_label_catalog.py \
+  --canonical data/game-library.json \
+  --inventory data/sample-inventory.csv \
+  --config catalog-config.json \
+  --output-dir build/sample-catalog
+```
+
+所蔵状態は `AVAILABLE | UNAVAILABLE | UNKNOWN` の顧客入力だけを正とし、Steam等の販売状態から施設在庫を推測しません。公式メタデータ、顧客所蔵情報、派生分類は生成JSONでも別レイヤーです。詳細は [White-label Library Catalog](docs/business/white-label-library-catalog.md) を参照してください。
 
 ## 分類の考え方
 
@@ -83,5 +102,6 @@ http://localhost:8000
 - ストア上の配信状況、価格、対応OSは変更される可能性があります
 - 同名タイトルでも版・プラットフォームが異なる場合があります
 - ゲーム名、画像、説明などの権利は各権利者に帰属します
+- 白ラベルsampleの所蔵状態は合成fixtureで、実店舗の在庫・貸出可否を表しません
 
-**README最終監査:** 2026-08-01
+**README最終監査:** 2026-08-09

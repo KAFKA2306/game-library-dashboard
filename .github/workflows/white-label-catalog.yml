@@ -1,0 +1,73 @@
+name: White-label catalog
+
+on:
+  pull_request:
+    paths:
+      - "catalog-config.json"
+      - "data/game-library.json"
+      - "data/import-template.csv"
+      - "data/sample-inventory.csv"
+      - "data/catalog-funnel.json"
+      - "scripts/build_white_label_catalog.py"
+      - "tests/test_white_label_catalog.py"
+      - "docs/business/white-label-library-catalog.md"
+      - ".github/workflows/white-label-catalog.yml"
+  push:
+    branches: [main]
+    paths:
+      - "catalog-config.json"
+      - "data/game-library.json"
+      - "data/import-template.csv"
+      - "data/sample-inventory.csv"
+      - "data/catalog-funnel.json"
+      - "scripts/build_white_label_catalog.py"
+      - "tests/test_white_label_catalog.py"
+      - "docs/business/white-label-library-catalog.md"
+      - ".github/workflows/white-label-catalog.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: white-label-catalog-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Compile
+        run: python -m py_compile scripts/build_white_label_catalog.py tests/test_white_label_catalog.py
+      - name: Test
+        run: python -m unittest tests.test_white_label_catalog -v
+      - name: Build synthetic sample catalog
+        run: |
+          python scripts/build_white_label_catalog.py \
+            --canonical data/game-library.json \
+            --inventory data/sample-inventory.csv \
+            --config catalog-config.json \
+            --output-dir build/sample-catalog
+      - name: Audit generated catalog
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("build/sample-catalog/catalog.json").read_text(encoding="utf-8"))
+          assert data["schema"] == "kafka.white-label-library.v1"
+          assert len(data["holdings"]) == 4
+          assert data["policy"]["availability_source"] == "CUSTOMER_PROVIDED_ONLY"
+          assert any(row["identity_status"] == "NOT_FOUND" for row in data["holdings"])
+          assert Path("build/sample-catalog/index.html").stat().st_size > 1000
+          print("catalog audit: PASS")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sample-white-label-catalog
+          path: build/sample-catalog/
+          retention-days: 14
