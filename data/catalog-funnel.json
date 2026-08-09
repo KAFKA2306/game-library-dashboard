@@ -1,0 +1,19 @@
+{
+  "schema": "kafka.catalog-funnel.v1",
+  "measurement_started_at": null,
+  "events": {
+    "sample_catalog_opened": 0,
+    "import_template_downloaded": 0,
+    "catalog_inquiry_started": 0,
+    "qualified_inquiry": 0,
+    "tenant_demo_completed": 0,
+    "paid_pilot": 0
+  },
+  "policy": {
+    "personal_data_allowed": false,
+    "viewer_history_allowed": false,
+    "customer_inventory_payload_allowed": false,
+    "counts_are_observed_only": true
+  },
+  "notes": "Zero values are initialization, not claimed usage. Update only from observed events."
+}
