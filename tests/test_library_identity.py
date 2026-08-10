@@ -1,7 +1,5 @@
 import json
-import tempfile
 import unittest
-from pathlib import Path
 
 from scripts.build_library_identity import build_model, duplicate_report, validate_model
 
@@ -60,9 +58,9 @@ class LibraryIdentityTests(unittest.TestCase):
 
     def test_explicit_links_allow_same_work_different_editions_and_platforms(self):
         links = {"records": [
-            {"legacy_id": "steam-100", "work_id": "work_atlas", "edition_id": "edition_atlas_standard"},
-            {"legacy_id": "steam-101", "work_id": "work_atlas", "edition_id": "edition_atlas_deluxe", "edition_name": "Deluxe Edition", "edition_status": "SPECIAL"},
-            {"legacy_id": "steam-102", "work_id": "work_atlas", "edition_id": "edition_atlas_standard", "platform_release_id": "release_atlas_gog", "platform": "PC", "store": "GOG"}
+            {"legacy_id": "steam-100", "work_id": "work_atlas", "edition_id": "edition_atlas_standard", "canonical_title": "Atlas"},
+            {"legacy_id": "steam-101", "work_id": "work_atlas", "edition_id": "edition_atlas_deluxe", "canonical_title": "Atlas", "edition_name": "Deluxe Edition", "edition_status": "SPECIAL"},
+            {"legacy_id": "steam-102", "work_id": "work_atlas", "edition_id": "edition_atlas_standard", "canonical_title": "Atlas", "platform_release_id": "release_atlas_gog", "platform": "PC", "store": "GOG"}
         ]}
         model = build_model(self.legacy, links)
         report = duplicate_report(model)
