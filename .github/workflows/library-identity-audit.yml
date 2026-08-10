@@ -1,0 +1,68 @@
+name: Library identity audit
+
+on:
+  pull_request:
+    paths:
+      - 'data/game-library.json'
+      - 'data/identity-links.json'
+      - 'scripts/build_library_identity.py'
+      - 'tests/test_library_identity.py'
+      - 'identity.html'
+      - '.github/workflows/library-identity-audit.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/game-library.json'
+      - 'data/identity-links.json'
+      - 'scripts/build_library_identity.py'
+      - 'tests/test_library_identity.py'
+      - 'identity.html'
+      - '.github/workflows/library-identity-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: library-identity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile identity boundary
+        run: python -m py_compile scripts/build_library_identity.py tests/test_library_identity.py
+      - name: Run identity regression tests
+        run: python -m unittest tests.test_library_identity -v
+      - name: Build canonical identity projection
+        run: python scripts/build_library_identity.py --output build/library-identity.json --report build/library-identity-audit.json
+      - name: Audit generated identity contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          model = json.loads(Path('build/library-identity.json').read_text())
+          legacy = json.loads(Path('data/game-library.json').read_text())
+          assert model['schema'] == 'kafka.game-library.identity.v2'
+          assert model['identity_policy']['title_is_merge_key'] is False
+          assert model['counts']['holdings'] == len(legacy['games'])
+          assert all('appid' not in item for key in ('works','editions','holdings') for item in model[key])
+          assert all('steam_appid' in item['external_ids'] for item in model['platform_releases'] if item['store'] == 'Steam')
+          assert all(h['identity_confidence'] != 'CONFLICT' for h in model['holdings'] if h['ownership_status'] in {'OWNED','MANAGED'})
+          PY
+      - name: Check identity UI syntax and contract hooks
+        run: |
+          grep -q 'Work / Edition / PlatformRelease / Holding' identity.html
+          grep -q 'identity-links.json' identity.html
+          grep -q 'Steam AppID' identity.html
+      - name: Remove generated audit outputs
+        if: always()
+        run: rm -rf build __pycache__ scripts/__pycache__ tests/__pycache__
+      - name: Clean checkout gate
+        run: test -z "$(git status --porcelain)"

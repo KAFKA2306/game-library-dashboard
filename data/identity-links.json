@@ -1,0 +1,9 @@
+{
+  "schema": "kafka.game-library.identity-links.v1",
+  "policy": {
+    "title_is_merge_key": false,
+    "automatic_cross_record_merge": false,
+    "notes": "Only records listed here may share an explicit Work, Edition, PlatformRelease, or Holding identity. Empty is valid: legacy records remain distinct by default."
+  },
+  "records": []
+}
