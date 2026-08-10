@@ -1,0 +1,7 @@
+# Local/private Steam inventory exports and generated reconciliation reports.
+.local/
+build/steam-reconciliation*.json
+
+# Python transient files.
+__pycache__/
+*.pyc

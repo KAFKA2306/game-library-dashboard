@@ -14,8 +14,46 @@ A separate user statement confirmed that `Split Fiction` was played and enjoyed 
 - `data/library-sync-queue.json` — screenshot candidates and other explicitly sourced reconciliation states, including play-history/demo/software exceptions.
 - `data/recommendation-candidates.json` — games recommended for future play; these are **not holdings**.
 - `scripts/audit_library_sync.py` — deterministic, network-free consistency audit.
+- `scripts/reconcile_steam_inventory.py` — diffs a local machine-readable Steam `GetOwnedGames` response against the canonical AppIDs without persisting the raw private inventory.
 - `scripts/apply_library_sync.py` — promotes only `APPEND_READY` records after official Steam metadata verification.
-- `.github/workflows/library-sync-audit.yml` — CI gate for the reconciliation state.
+- `.github/workflows/library-sync-audit.yml` — CI gate for the reconciliation state and reconciliation code.
+
+## Machine-readable inventory boundary
+
+Steam documents `IPlayerService/GetOwnedGames` as returning the games owned by a player when those details are visible to the caller:
+
+- https://partner.steamgames.com/doc/webapi/IPlayerService
+- https://partner.steamgames.com/doc/webapi_overview/auth
+
+The endpoint requires a Web API key and SteamID. Steam's documentation also states that free games are excluded by default unless `include_played_free_games` is enabled. A full reconciliation capture must therefore use the intended complete request scope and must not use `appids_filter`.
+
+The API key, SteamID, and raw inventory are private runtime inputs. Do **not** commit them. Store the JSON response under the ignored `.local/` directory, for example:
+
+```text
+.local/steam-owned-games.json
+```
+
+Then run the deterministic offline diff:
+
+```bash
+mkdir -p build
+python scripts/reconcile_steam_inventory.py \
+  .local/steam-owned-games.json \
+  --output build/steam-reconciliation.json
+```
+
+The report contains only:
+
+- SHA-256 of the exact input bytes;
+- AppID counts;
+- matched AppIDs;
+- Steam-only and canonical-only AppID differences;
+- one of `game / demo / software / tool / DLC / play-history / unknown` for each recorded difference/context item;
+- a machine-readable reason for every classification, including every `unknown`.
+
+The report never embeds the raw `response` payload, API key, SteamID, game title list, or playtime. Both `.local/` and the conventional generated report path are ignored by Git.
+
+A `GetOwnedGames` response is ownership evidence for AppIDs contained in that response, but the reconciliation command is audit-only: it does not mutate `data/game-library.json` or silently promote queue records. An official metadata verification/promotion step remains separate.
 
 ## State model
 
@@ -47,7 +85,7 @@ Current entry:
 
 - Split Fiction (`2001120`)
 
-This state must not be automatically promoted to `APPEND_READY` or a canonical holding.
+This state must not be automatically promoted to `APPEND_READY` or a canonical holding. If a later machine-readable `GetOwnedGames` export contains this AppID, the reconciliation report may classify that AppID as an owned game, but the queue/canonical data still require an explicit verified promotion step.
 
 ### `VERIFY_HOLDING`
 
@@ -94,12 +132,17 @@ The screenshot counter alone is not a complete inventory export. Full reconcilia
 6. Work / Edition / PlatformRelease / Holding boundaries from Issue #2 are preserved;
 7. published counts are generated from data, not maintained as hand-written README numbers.
 
+The code path for item 2 now exists, but the repository deliberately does not contain the user's raw Steam inventory. Therefore Issue #5 is not complete until a real, machine-readable `GetOwnedGames` export is supplied locally, reconciled, and any resulting reasoned `unknown` records are reviewed or explicitly accepted as unresolved.
+
 ## CI
 
 Run locally:
 
 ```bash
+python -m unittest tests.test_reconcile_steam_inventory -v
 python scripts/audit_library_sync.py
 ```
 
 The audit rejects duplicate non-null AppIDs, recommendation/holding overlap, invalid queue states, malformed Steam source URLs, software promoted as games, screenshot-free `APPEND_READY`/`MERGED` entries, unverified demo AppIDs, `APPEND_READY` entries already present in canonical data, and `MERGED` entries missing from canonical data.
+
+The reconciliation tests additionally reject duplicate AppIDs and `game_count` mismatches, verify that every difference is either explicitly classified or a reasoned `unknown`, preserve demo/software/play-history context, and confirm that generated reports carry an input SHA-256 without embedding the raw Steam response.
