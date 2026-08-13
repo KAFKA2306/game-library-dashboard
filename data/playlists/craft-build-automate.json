@@ -1,0 +1,136 @@
+{
+  "schema": "kafka.game-playlist.v1",
+  "generated_at": "2026-08-13",
+  "title": "CRAFT / BUILD / AUTOMATE",
+  "description": "A low-vocal electronic and ambient companion for long crafting, building, survival, and automation sessions. Sequenced from exploration into flow, factory momentum, and late-session cooldown.",
+  "source_game_catalog": "data/game-library.json",
+  "target_games": [
+    "Factorio",
+    "Satisfactory",
+    "shapez 2 - Factory",
+    "The Planet Crafter",
+    "Oxygen Not Included",
+    "Timberborn",
+    "Palworld",
+    "Subnautica 2"
+  ],
+  "curation_policy": {
+    "primary_goal": "support sustained play without competing heavily for verbal attention",
+    "sound_profile": [
+      "instrumental-or-low-vocal",
+      "ambient",
+      "downtempo",
+      "minimal-electronic",
+      "gradual-build"
+    ],
+    "arc": [
+      "explore",
+      "settle",
+      "build",
+      "automate",
+      "cooldown"
+    ]
+  },
+  "duration_seconds": 4397,
+  "duration_human": "73:17",
+  "tracks": [
+    {
+      "order": 1,
+      "artist": "C418",
+      "title": "Sweden",
+      "spotify_url": "https://open.spotify.com/track/4NsPgRYUdHu2Q5JRNgXYU5",
+      "phase": "explore"
+    },
+    {
+      "order": 2,
+      "artist": "Ólafur Arnalds",
+      "title": "Near Light",
+      "spotify_url": "https://open.spotify.com/track/63QmDdHSC1mSMmAxUkGtSR",
+      "phase": "explore"
+    },
+    {
+      "order": 3,
+      "artist": "Emancipator",
+      "title": "First Snow",
+      "spotify_url": "https://open.spotify.com/track/4hGXwJZJASH1U7JGKnhJEg",
+      "phase": "settle"
+    },
+    {
+      "order": 4,
+      "artist": "Tycho",
+      "title": "Awake",
+      "spotify_url": "https://open.spotify.com/track/1URWx3AEE7tiuIkeZ9T4dL",
+      "phase": "settle"
+    },
+    {
+      "order": 5,
+      "artist": "Boards of Canada",
+      "title": "Dayvan Cowboy",
+      "spotify_url": "https://open.spotify.com/track/2J4lJMCuFCA0zlwFOjePD5",
+      "phase": "build"
+    },
+    {
+      "order": 6,
+      "artist": "C418",
+      "title": "Aria Math",
+      "spotify_url": "https://open.spotify.com/track/6VK8OMA2FhX4KoS3QCH7rL",
+      "phase": "build"
+    },
+    {
+      "order": 7,
+      "artist": "Emancipator",
+      "title": "Greenland",
+      "spotify_url": "https://open.spotify.com/track/7hlBb5jUQH764VF99CinP4",
+      "phase": "build"
+    },
+    {
+      "order": 8,
+      "artist": "Helios",
+      "title": "Bless This Morning Year",
+      "spotify_url": "https://open.spotify.com/track/4bwY5cdvx1ELO4AP7CWbDV",
+      "phase": "build"
+    },
+    {
+      "order": 9,
+      "artist": "Four Tet",
+      "title": "Two Thousand and Seventeen",
+      "spotify_url": "https://open.spotify.com/track/2ZIaH69kaz55RM4Pjx6KXl",
+      "phase": "automate"
+    },
+    {
+      "order": 10,
+      "artist": "Kiasmos",
+      "title": "Looped",
+      "spotify_url": "https://open.spotify.com/track/4zSbFrERDuBdZ1Bio9uee4",
+      "phase": "automate"
+    },
+    {
+      "order": 11,
+      "artist": "Bonobo",
+      "title": "Cirrus",
+      "spotify_url": "https://open.spotify.com/track/4kmSlv0Kr8sMHJ6vPB8dsG",
+      "phase": "automate"
+    },
+    {
+      "order": 12,
+      "artist": "Rival Consoles",
+      "title": "Recovery",
+      "spotify_url": "https://open.spotify.com/track/0vp09QgBhShrQOL2w7P8k4",
+      "phase": "automate"
+    },
+    {
+      "order": 13,
+      "artist": "Max Cooper",
+      "title": "Order from Chaos",
+      "spotify_url": "https://open.spotify.com/track/1O2j6xoEmETsbTk9r8yyQO",
+      "phase": "automate"
+    },
+    {
+      "order": 14,
+      "artist": "Nils Frahm",
+      "title": "Says",
+      "spotify_url": "https://open.spotify.com/track/5626KdflSKfeDK7RJQfSrE",
+      "phase": "cooldown"
+    }
+  ]
+}
