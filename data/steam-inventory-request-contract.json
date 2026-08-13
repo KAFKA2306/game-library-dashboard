@@ -1,0 +1,21 @@
+{
+  "schema": "kafka.steam-inventory-request-contract.v1",
+  "endpoint": "https://partner.steam-api.com/IPlayerService/GetOwnedGames/v1/",
+  "method": "GET",
+  "request_scope": {
+    "include_appinfo": false,
+    "include_played_free_games": true,
+    "appids_filter": null
+  },
+  "private_runtime_fields": [
+    "key",
+    "steamid",
+    "raw_response"
+  ],
+  "raw_response_path": ".local/steam-owned-games.json",
+  "primary_sources": [
+    "https://partner.steamgames.com/doc/webapi/IPlayerService",
+    "https://partner.steamgames.com/doc/webapi_overview/auth"
+  ],
+  "policy": "A reconciliation export is eligible for full-library diff only when it uses the complete GetOwnedGames scope above. Credentials, SteamID, and the raw response remain private runtime inputs and must not be committed."
+}
