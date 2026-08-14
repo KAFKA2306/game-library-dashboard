@@ -2,51 +2,59 @@
 
 **Steamに「141」と表示されても、それがそのまま「所有ゲーム141本」とは限らない。**
 
-一覧にはゲーム以外のソフトウェアやデモが混ざることがあり、プレイしたゲームがそのアカウントの所蔵品とは限りません。推薦候補も所有物ではありません。画面上の件数だけを正準データへ転記すると、「見えたもの」「遊んだもの」「持っているもの」を一つに潰してしまいます。
+一覧にはゲーム以外のsoftwareやdemoが混ざり、プレイ済みでもそのaccountの所蔵とは限りません。推薦候補も所有物ではありません。
 
-Game Library Dashboardは、公式情報で照合したゲーム所蔵を、版・プラットフォーム・証拠種別を分けたまま管理・表示する静的ダッシュボードです。canonical snapshot、sync queue、Work / Edition / PlatformRelease / Holding、white-label catalogを使って、Steam画面の観測件数、プレイ履歴、デモ、ソフトウェア、推薦候補、正準所蔵を分離します。
+Game Library Dashboard は、**「見えた」「遊んだ」「持っている」を分け、公式情報で確認できた所蔵だけを自分のゲームライブラリとして扱う**静的dashboardです。
 
-**公開サイト:** https://kafka2306.github.io/game-library-dashboard/
+- 公開サイト: https://kafka2306.github.io/game-library-dashboard/
+- 正準snapshot: `data/game-library.json`
 
-正準件数は`data/game-library.json`を正とします。2026-08-09に確認したSteam画面では`すべてのゲーム (141)`が表示されているため、この表示値をそのまま正準件数へ転記せず、差分監査キューで段階的に突合します。
+## Vision
 
-タイトル、プラットフォーム、公式ジャンル、プレイモード、デザイン上の系統、派生タグを分けて保存し、異なる版やプラットフォームを自動的に同じ商品として統合しません。デモ、Steamソフトウェア、プレイ履歴、未所有の推薦候補も所蔵ゲームへ混ぜません。
+ゲーム一覧を「何本あるか」から、**自分がどの作品のどの版を、どのplatformで本当に所蔵しているか説明できるコレクション**へ変えます。
 
-## できること
+利用者が判断したいこと:
 
-- 所蔵ゲームを一覧表示
-- タイトル、ジャンル、プレイモードで確認
-- 英語・日本語表示を切り替え
-- 公式メタデータと独自分類を区別
-- データの出典と取得時点を保持
-- GitHub Pagesで静的に公開
-- Steam画面と正準データの差分を、ゲーム / デモ / ソフトウェア / プレイ履歴 / 推薦候補に分離して監査
-- 一次情報確認済みの差分候補だけを正準データへ昇格
-- 顧客提供の所蔵CSVから、正準メタデータと混ぜずに白ラベル静的カタログを生成
+- このtitleは本当に所蔵しているか
+- demo / software / recommendationが混ざっていないか
+- プレイ済みと所有を区別できるか
+- 同名作品のedition / platform releaseを分けられるか
+- 画面で見つけた候補を何の証拠で正準DBへ昇格したか
 
-## 主なファイル
+## Design philosophy
 
-| ファイル | 内容 |
-| --- | --- |
-| `data/game-library.json` | ゲームライブラリの正規化済み正準スナップショット |
-| `data/library-sync-queue.json` | Steam画面・ユーザー確認から得た候補を、証拠種別ごとに分離して管理する監査キュー |
-| `data/recommendation-candidates.json` | 所蔵と分離した次回プレイ候補 |
-| `scripts/audit_library_sync.py` | 差分キュー・推薦候補・正準データの決定論的監査 |
-| `scripts/apply_library_sync.py` | `APPEND_READY` のみを公式Steam情報で再確認して正準データへ昇格 |
-| `docs/library-sync.md` | Steam Library突合ルールと完了条件 |
-| `index.html` | 公開ダッシュボード |
-| `ontology/project.yaml` | データ取得・分類・公開の意味モデル |
-| `catalog-config.json` | 白ラベルカタログの表示・導線設定 |
-| `data/import-template.csv` | 顧客所蔵データの入力テンプレート |
-| `scripts/build_white_label_catalog.py` | `catalog.json` / `index.html` 生成器 |
-| `docs/business/white-label-library-catalog.md` | 無料sampleと導入PoCの境界 |
-| `.github/workflows/` | GitHub Pages公開・検証処理 |
+- **Observed is not owned.** Steam画面で見えたことをHoldingへ自動昇格しない。
+- **Played is not owned.** プレイ履歴を所蔵証拠へ変換しない。
+- **Demo / software / recommendation stay separate.** 件数をきれいに合わせるためにゲーム扱いしない。
+- **Work / Edition / PlatformRelease / Holdingを分ける.** 同名titleを一つのrecordへ潰さない。
+- **Official metadata before merge.** 正式名称・AppID・developer・release等は公式store/一次情報で再確認する。
+- **Unknown is a valid state.** 所有根拠が足りないcandidateを推測で埋めない。
+- **Customer inventory and canonical metadata stay separate.** white-label catalogでも施設在庫をSteam販売状態から推測しない。
 
-## Steam Library差分監査
+## Why / 差別化
 
-2026-08-09のSteam画面、会話で確認できたプレイ履歴、`data/game-library.json` の正準スナップショットを区別して監査し、一次情報まで確認できた候補を `data/library-sync-queue.json` に保存しています。
+一般的なlibrary dashboardは、APIや画面から取得した一覧をそのまま「所有ゲーム」として表示しがちです。本repoは、**所蔵という主張を候補発見から切り離し、証拠が揃ったrecordだけをcanonical Holdingへ昇格すること**を中心に置きます。
 
-2026-08-09バッチでは、Steam画面で同定でき公式情報を再確認した次の7件を `MERGED` として正準データへ追加しました。
+schemaやstatic Pagesが差別化なのではありません。価値は、`141`のような画面上の数字と正準所蔵数が違っても、**何が未突合で、何がdemoで、何がplay historyで、何が本当のHoldingか**を説明できることです。
+
+## User journey
+
+```text
+Steam画面 / user observation
+  → candidate
+  → evidence typeを保持
+  → official Steam / publisher dataで再照合
+  → game / demo / software / play-history / recommendationを分離
+  → sync queue
+  → ownership evidenceを満たしたものだけcanonical Holdingへ
+  → dashboard
+```
+
+## Current reconciliation example
+
+2026-08-09に確認したSteam画面では `すべてのゲーム (141)` が表示されていました。この値は観測値であり、canonical countとして転記しません。
+
+同日の監査では、公式情報まで確認できた7件を`MERGED`しました。
 
 - Unravel Two
 - PICO PARK:Classic Edition
@@ -56,65 +64,68 @@ Game Library Dashboardは、公式情報で照合したゲーム所蔵を、版�
 - Moonlighter
 - VRChat
 
-そのほかの状態は分離したままです。
+一方、次は別stateのままです。
 
-- `PLAYED_CONFIRMED_HOLDING_UNKNOWN`: Split Fiction — プレイ済みであることは確認済みだが、このSteamアカウントの所蔵であるとは推測しない
-- `VERIFY_HOLDING`: Backpack Battles Demo — 画面からDemoのAppIDは確定できないため、有料版AppIDをDemo自身のIDとして扱わず、有料版所有も推測しない
-- `SOFTWARE_SEPARATE`: XSOverlay / OVR Advanced Settings — ゲーム件数へ混ぜない
-- 推薦候補: A Way Out / LEGO Voyagers — `ownership_status=UNKNOWN` のまま所蔵とは分離
+- `PLAYED_CONFIRMED_HOLDING_UNKNOWN`: Split Fiction
+- `VERIFY_HOLDING`: Backpack Battles Demo
+- `SOFTWARE_SEPARATE`: XSOverlay / OVR Advanced Settings
+- recommendation candidates: A Way Out / LEGO Voyagers
 
-画面の `141` という表示値だけから不足件数を機械的に作りません。完全突合にはSteam側の機械可読な所蔵一覧と、`docs/library-sync.md`で定義する Work / Edition / PlatformRelease / Holding の境界が必要です。
+件数を141へ合わせるために、これらを所蔵へ昇格しません。
 
-監査は次で実行できます。
+## Canonical model
+
+```text
+Work
+  └─ Edition
+       └─ PlatformRelease
+            └─ Holding
+```
+
+周辺state:
+
+```text
+ObservedCandidate
+PlayHistory
+Demo
+Software
+RecommendationCandidate
+```
+
+正準データ: `data/game-library.json`
+
+## Sync queue
+
+`data/library-sync-queue.json` は、画面・会話等から見つかったcandidateをHoldingへ直書きしないための監査境界です。
 
 ```bash
 python scripts/audit_library_sync.py
 ```
 
-`APPEND_READY` を正準データへ昇格する場合は次を実行します。
+`APPEND_READY`だけを公式Steam情報で再確認してmerge:
 
 ```bash
 python scripts/apply_library_sync.py
 python scripts/audit_library_sync.py
 ```
 
-CIでは `.github/workflows/library-sync-audit.yml` が整合性を検査します。
+詳細: [docs/library-sync.md](docs/library-sync.md)
 
-## データの情報源
+## What you can do
 
-- Steam Storeのアプリ情報
-- Temple Gates Gamesの公開情報
-- Rio Grande Gamesの公開情報
-- 各タイトル・出版社の公式情報
+- 所蔵ゲーム一覧を見る
+- title / genre / play modeで確認
+- 日本語 / 英語表示
+- official metadataとderived classificationを区別
+- source / observed timeを確認
+- Steam画面との差分を証拠type別に監査
+- verified candidateだけをcanonical libraryへmerge
+- recommendationを所有物と分離
+- customer CSVからwhite-label library catalogを生成
 
-取得元の値と、ダッシュボード上で生成した分類を混ぜません。Steam画面は候補同定にだけ使い、正式名称・AppID・開発元・発売日等は公式ストア/一次情報で再確認します。ユーザーの「プレイ済み」という確認はプレイ履歴として保存し、Steam所蔵の証拠へ自動昇格させません。
+## White-label library catalog
 
-## データ処理の流れ
-
-```text
-公式サイト・ストアのメタデータ
-  → タイトル・版・プラットフォームを同定
-  → 表記と項目を正規化
-  → デザイン系統や派生タグを追加
-  → 重複・競合・欠損を判定
-  → JSONデータセットを生成
-  → ダッシュボードへ公開
-```
-
-Steam画面や会話からの追加候補は、直接この流れへ投入せず次の境界を通します。
-
-```text
-Steam画面 / ユーザーのプレイ確認
-  → 証拠種別を保持した候補同定
-  → 公式Steam AppID / Store情報で再照合
-  → game / demo / software / play-history / recommendation を分離
-  → library-sync queue
-  → 所蔵根拠と正準schemaを満たした項目だけ game-library.json へ統合
-```
-
-## 白ラベル所蔵カタログ
-
-`catalog-config.json` と顧客管理下のCSVを入力にすると、既存の正準データを参照する静的 `catalog.json` / `index.html` を生成できます。
+顧客管理下CSVとcanonical metadataから静的catalogを生成できます。
 
 ```bash
 python scripts/build_white_label_catalog.py \
@@ -124,55 +135,75 @@ python scripts/build_white_label_catalog.py \
   --output-dir build/sample-catalog
 ```
 
-所蔵状態は `AVAILABLE | UNAVAILABLE | UNKNOWN` の顧客入力だけを正とし、Steam等の販売状態から施設在庫を推測しません。公式メタデータ、顧客所蔵情報、派生分類は生成JSONでも別レイヤーです。詳細は [White-label Library Catalog](docs/business/white-label-library-catalog.md) を参照してください。
+customer inventory stateは次だけを正とします。
 
-## 分類の考え方
+- `AVAILABLE`
+- `UNAVAILABLE`
+- `UNKNOWN`
 
-次の項目は別の意味を持ちます。
+Steamの販売状況から施設在庫を推測しません。
 
-- 公式ジャンル
-- 公式に示されたプレイモード
-- プラットフォーム
-- ゲームの版・エディション
-- デザインファミリー
-- システムが生成した派生タグ
-- Steam画面で見えた候補
-- ユーザーが確認したプレイ履歴
-- 正準所蔵
-- デモ / ソフトウェア
-- 未所有の推薦候補
+詳細: [docs/business/white-label-library-catalog.md](docs/business/white-label-library-catalog.md)
 
-出典、取得時刻、変換規則が欠ける値は`UNKNOWN`または`flag_conflict`として扱います。
+## Evidence types
 
-機械可読な定義:
+別の意味として保持するもの:
 
-- [プロジェクト・オントロジー](ontology/project.yaml)
-- [Steam Library突合ルール](docs/library-sync.md)
-- [共通因果・証拠オントロジー](https://github.com/KAFKA2306/know/blob/main/ontology/causal-evidence-core.yaml)
+- official genre
+- official play mode
+- platform
+- edition
+- design family
+- derived tag
+- Steam screen observation
+- user-confirmed play history
+- canonical Holding
+- demo / software
+- recommendation candidate
 
-## ローカル確認
+source / timestamp / transformation ruleが欠ける値は`UNKNOWN`または`flag_conflict`です。
 
-静的サイトのため、簡易HTTPサーバーから確認できます。
+Machine-readable contracts:
+
+- [Project ontology](ontology/project.yaml)
+- [Steam reconciliation rules](docs/library-sync.md)
+- [Causal/evidence core](https://github.com/KAFKA2306/know/blob/main/ontology/causal-evidence-core.yaml)
+
+## Repository map
+
+```text
+data/game-library.json              canonical library
+data/library-sync-queue.json        reconciliation candidates
+data/recommendation-candidates.json recommendation-only records
+scripts/audit_library_sync.py       deterministic audit
+scripts/apply_library_sync.py       verified promotion
+scripts/build_white_label_catalog.py catalog generation
+index.html                          public dashboard
+ontology/project.yaml               evidence semantics
+docs/                               operating/business contracts
+```
+
+## Local preview
 
 ```bash
 python -m http.server 8000
 ```
 
-ブラウザで次を開きます。
+Open `http://localhost:8000`.
 
-```text
-http://localhost:8000
-```
+## Limits
 
-## 注意
+- latest canonical countは`data/game-library.json`を優先
+- Steam `141`は観測値でありcanonical countではない
+- played != owned
+- demo != paid-game ownership
+- software/toolをgame countへ混ぜない
+- recommendation != Holding
+- store availability / price / OS supportは変わり得る
+- sample white-label inventoryはfixtureであり実店舗在庫ではない
 
-- 最新の正準件数は `data/game-library.json` を正とする
-- Steam画面の `すべてのゲーム (141)` は突合対象の観測値であり、そのまま正準DB件数へ転記しない
-- 「プレイ済み」は「このSteamアカウントが所有・所蔵している」と同義ではない
-- ストア上の配信状況、価格、対応OSは変更される可能性がある
-- 同名タイトルでも版・プラットフォームが異なる場合がある
-- デモ表示から有料版の所有を推測しない
-- Steamソフトウェア/ツールをゲーム件数に含めない
-- 推薦候補を所蔵ゲームとして扱わない
-- ゲーム名、画像、説明などの権利は各権利者に帰属する
-- 白ラベルsampleの所蔵状態は合成fixtureで、実店舗の在庫・貸出可否を表さない
+## Done
+
+成功指標はSteam画面の数字とDB件数を一致させることではありません。
+
+**新しいcandidateが増えても、「なぜこれは所蔵で、なぜこれはdemo・software・play history・recommendationのままなのか」を証拠付きで説明できること**をDoneとします。
