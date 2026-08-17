@@ -1,5 +1,9 @@
 # Game Library Dashboard
 
+[![Data quality](https://github.com/KAFKA2306/game-library-dashboard/actions/workflows/data-quality.yml/badge.svg)](https://github.com/KAFKA2306/game-library-dashboard/actions/workflows/data-quality.yml)
+[![Library identity audit](https://github.com/KAFKA2306/game-library-dashboard/actions/workflows/library-identity-audit.yml/badge.svg)](https://github.com/KAFKA2306/game-library-dashboard/actions/workflows/library-identity-audit.yml)
+[![pages-build-deployment](https://github.com/KAFKA2306/game-library-dashboard/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/KAFKA2306/game-library-dashboard/actions/workflows/pages/pages-build-deployment)
+
 **Steamに「141」と表示されても、それがそのまま「所有ゲーム141本」とは限らない。**
 
 一覧にはゲーム以外のsoftwareやdemoが混ざり、プレイ済みでもそのaccountの所蔵とは限りません。推薦候補も所有物ではありません。
