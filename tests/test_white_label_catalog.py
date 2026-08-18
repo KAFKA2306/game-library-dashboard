@@ -4,6 +4,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location(
@@ -83,6 +84,25 @@ class WhiteLabelCatalogTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 MODULE.load_config(path)
 
+    def test_contact_url_starts_a_qualified_inquiry(self):
+        parsed = urlparse(self.config["contact_url"])
+        self.assertEqual(parsed.scheme, "https")
+        self.assertEqual(parsed.netloc, "github.com")
+        self.assertEqual(parsed.path, "/KAFKA2306/game-library-dashboard/issues/new")
+        params = parse_qs(parsed.query)
+        self.assertEqual(params["title"], ["施設向け公開所蔵カタログの導入相談"])
+        body = params["body"][0]
+        for field in (
+            "施設・サークル種別:",
+            "所蔵ゲーム数:",
+            "現在の一覧形式（CSV / スプレッドシート / その他）:",
+            "公開希望時期:",
+            "相談したい内容:",
+        ):
+            self.assertIn(field, body)
+        self.assertIn("個人情報", body)
+        self.assertIn("認証情報", body)
+
     def test_render_contains_filters_and_provenance(self):
         rendered = MODULE.render_html(self.catalog)
         self.assertIn('type="search"', rendered)
@@ -90,6 +110,8 @@ class WhiteLabelCatalogTests(unittest.TestCase):
         self.assertIn("CUSTOMER_PROVIDED", rendered)
         self.assertIn("公式情報: UNKNOWN", rendered)
         self.assertIn("ストア販売状況から在庫を推測しません", rendered)
+        self.assertIn("自分の施設の一覧を作る", rendered)
+        self.assertIn("/issues/new?", rendered)
 
 
 if __name__ == "__main__":
