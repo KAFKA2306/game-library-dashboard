@@ -3,16 +3,20 @@ name: Data quality
 on:
   pull_request:
     paths:
+      - "index.html"
       - "data/game-library.json"
       - "scripts/validate_game_library.py"
       - "tests/test_validate_game_library.py"
+      - "tests/test_index_contract.py"
       - ".github/workflows/data-quality.yml"
   push:
     branches: [main]
     paths:
+      - "index.html"
       - "data/game-library.json"
       - "scripts/validate_game_library.py"
       - "tests/test_validate_game_library.py"
+      - "tests/test_index_contract.py"
       - ".github/workflows/data-quality.yml"
   workflow_dispatch:
 
@@ -33,7 +37,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Compile validator and tests
-        run: python -m py_compile scripts/validate_game_library.py tests/test_validate_game_library.py
+        run: python -m py_compile scripts/validate_game_library.py tests/test_validate_game_library.py tests/test_index_contract.py
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
       - name: Validate published dataset
