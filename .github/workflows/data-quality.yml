@@ -3,16 +3,22 @@ name: Data quality
 on:
   pull_request:
     paths:
+      - "README.md"
+      - "index.html"
       - "data/game-library.json"
       - "scripts/validate_game_library.py"
       - "tests/test_validate_game_library.py"
+      - "tests/test_index_contract.py"
       - ".github/workflows/data-quality.yml"
   push:
     branches: [main]
     paths:
+      - "README.md"
+      - "index.html"
       - "data/game-library.json"
       - "scripts/validate_game_library.py"
       - "tests/test_validate_game_library.py"
+      - "tests/test_index_contract.py"
       - ".github/workflows/data-quality.yml"
   workflow_dispatch:
 
@@ -33,11 +39,11 @@ jobs:
         with:
           python-version: "3.12"
       - name: Compile validator and tests
-        run: python -m py_compile scripts/validate_game_library.py tests/test_validate_game_library.py
-      - name: Run unit tests
-        run: python -m unittest discover -s tests -v
+        run: python -m py_compile scripts/validate_game_library.py tests/test_validate_game_library.py tests/test_index_contract.py
       - name: Validate published dataset
         run: python scripts/validate_game_library.py data/game-library.json --report build/game-library-audit.json
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
       - name: Upload reproducibility report
         if: always()
         uses: actions/upload-artifact@v4

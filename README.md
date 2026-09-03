@@ -1,3 +1,5 @@
+https://kafka2306.github.io/game-library-dashboard/
+
 # Game Library Dashboard
 
 [![Data quality](https://github.com/KAFKA2306/game-library-dashboard/actions/workflows/data-quality.yml/badge.svg)](https://github.com/KAFKA2306/game-library-dashboard/actions/workflows/data-quality.yml)
@@ -10,7 +12,6 @@
 
 Game Library Dashboard は、**「見えた」「遊んだ」「持っている」を分け、公式情報で確認できた所蔵だけを自分のゲームライブラリとして扱う**静的dashboardです。
 
-- 公開サイト: https://kafka2306.github.io/game-library-dashboard/
 - 正準snapshot: `data/game-library.json`
 
 ## Vision
