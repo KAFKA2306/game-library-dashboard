@@ -24,9 +24,11 @@ class IndexContractTest(unittest.TestCase):
         )
 
     def test_filter_state_is_shareable_by_url(self):
-        for key in ("q", "family", "genre", "mode", "tag"):
-            self.assertIn(f"params.set('{key}'", self.html)
-            self.assertIn(f"params.get('{key}')", self.html)
+        self.assertIn("params.set('q'", self.html)
+        self.assertIn("params.get('q')", self.html)
+        self.assertIn("['family', 'genre', 'mode', 'tag']", self.html)
+        self.assertIn("params.set(key, controls[key].value)", self.html)
+        self.assertIn("params.get(key)", self.html)
         self.assertIn("history.replaceState", self.html)
 
     def test_data_fetch_failure_is_not_silently_swallowed(self):
