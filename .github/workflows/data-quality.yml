@@ -3,6 +3,7 @@ name: Data quality
 on:
   pull_request:
     paths:
+      - "README.md"
       - "index.html"
       - "data/game-library.json"
       - "scripts/validate_game_library.py"
@@ -12,6 +13,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "README.md"
       - "index.html"
       - "data/game-library.json"
       - "scripts/validate_game_library.py"
