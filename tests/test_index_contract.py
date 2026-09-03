@@ -4,18 +4,25 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
+README = ROOT / "README.md"
+PRODUCTION_URL = "https://kafka2306.github.io/game-library-dashboard/"
 
 
 class IndexContractTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.html = INDEX.read_text(encoding="utf-8")
+        cls.readme = README.read_text(encoding="utf-8")
 
     def test_canonical_production_url_is_declared(self):
         self.assertIn(
-            '<link rel="canonical" href="https://kafka2306.github.io/game-library-dashboard/" />',
+            f'<link rel="canonical" href="{PRODUCTION_URL}" />',
             self.html,
         )
+
+    def test_readme_starts_with_canonical_production_url(self):
+        self.assertEqual(self.readme.splitlines()[0], PRODUCTION_URL)
+        self.assertEqual(self.readme.count(PRODUCTION_URL), 1)
 
     def test_primary_library_precedes_secondary_analysis(self):
         self.assertLess(
