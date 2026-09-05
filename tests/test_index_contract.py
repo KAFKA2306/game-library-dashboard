@@ -38,6 +38,20 @@ class IndexContractTest(unittest.TestCase):
         self.assertIn("params.get(key)", self.html)
         self.assertIn("history.replaceState", self.html)
 
+    def test_compare_state_is_shareable_and_bounded(self):
+        self.assertIn('id="compare-panel"', self.html)
+        self.assertIn('aria-live="polite"', self.html)
+        self.assertIn("params.set('compare', compareIds.join(','))", self.html)
+        self.assertIn("get('compare')", self.html)
+        self.assertIn(".slice(0, 2)", self.html)
+        self.assertIn("compareIds.length < 2", self.html)
+        self.assertIn('data-compare-id=', self.html)
+        self.assertIn('aria-pressed="false"', self.html)
+
+    def test_compare_uses_existing_canonical_fields(self):
+        for field in ("release_date", "design_family", "play_modes", "official_genres", "derived_tags", "official_store", "metadata_source"):
+            self.assertIn(f"game.{field}", self.html)
+
     def test_data_fetch_failure_is_not_silently_swallowed(self):
         self.assertIn("if (!response.ok) throw new Error", self.html)
         self.assertIn("UNVERIFIED:", self.html)
