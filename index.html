@@ -67,6 +67,18 @@
       .chip { border: 1px solid var(--border); padding: 3px 6px; font-size: 12px; background: var(--canvas); }
       .card-links { display: flex; flex-wrap: wrap; gap: var(--space-2); align-self: end; }
       .card-links a { display: inline-flex; align-items: center; min-height: 32px; font-size: 12px; font-weight: 700; }
+      .compare-toggle[aria-pressed="true"] { border-color: var(--primary); background: color-mix(in srgb, var(--primary) 10%, var(--surface)); color: var(--primary); }
+      .compare-panel { display: grid; gap: var(--space-3); margin: 10px 0 18px; padding: var(--space-3); border: 1px solid var(--primary); background: var(--surface); }
+      .compare-panel[hidden] { display: none; }
+      .compare-head { display: flex; align-items: start; justify-content: space-between; gap: var(--space-3); }
+      .compare-head h2 { margin: 0; font-size: 18px; }
+      .compare-hint { color: var(--muted); font-size: 12px; }
+      .compare-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+      .compare-game { border: 1px solid var(--border); padding: var(--space-3); min-width: 0; }
+      .compare-game h3 { margin: 0 0 var(--space-2); font-size: 16px; }
+      .compare-row { display: grid; grid-template-columns: 7rem 1fr; gap: var(--space-2); padding: 5px 0; border-top: 1px solid var(--border); font-size: 12px; }
+      .compare-row:first-of-type { border-top: 0; }
+      .compare-label { color: var(--muted); font-weight: 700; }
       .empty { display: none; border: 1px solid var(--border); background: var(--surface); color: var(--muted); padding: var(--space-4); }
       .empty.visible { display: block; }
       .analysis { margin-top: 28px; border-top: 1px solid var(--border); padding-top: var(--space-4); }
@@ -94,7 +106,8 @@
         .hero { padding-top: 24px; }
         .controls { grid-template-columns: 1fr; }
         .control:first-child { grid-column: auto; }
-        .ontology { grid-template-columns: 1fr; }
+        .ontology, .compare-grid { grid-template-columns: 1fr; }
+        .compare-row { grid-template-columns: 1fr; gap: 2px; }
         .bar { grid-template-columns: 1fr; }
       }
     </style>
@@ -132,6 +145,16 @@
         <div><h2 id="library-title"></h2><span class="count" id="result-count">loading</span></div>
         <span class="count" id="price-count"></span>
       </section>
+      <section class="compare-panel" id="compare-panel" aria-live="polite" hidden>
+        <div class="compare-head">
+          <div>
+            <h2 id="compare-title"></h2>
+            <div class="compare-hint" id="compare-hint"></div>
+          </div>
+          <button id="compare-clear" type="button"></button>
+        </div>
+        <div class="compare-grid" id="compare-grid"></div>
+      </section>
       <section class="game-grid" id="game-grid" aria-label="Game library"></section>
       <div class="empty" id="empty"></div>
 
@@ -160,7 +183,11 @@
         empty: document.querySelector('#empty'),
       };
       const grid = document.querySelector('#game-grid');
+      const comparePanel = document.querySelector('#compare-panel');
+      const compareGrid = document.querySelector('#compare-grid');
+      const compareClear = document.querySelector('#compare-clear');
       let libraryCache = null;
+      let compareIds = [];
       let currentLang = getInitialLanguage();
       const text = {
         ja: {
@@ -172,6 +199,8 @@
           shown: (count) => `${count}件を表示`, free: (free, paid) => `無料 ${free} / 有料または不明 ${paid}`,
           metrics: ['収録', '設計ファミリー', '発売済み', '公式サイトあり'],
           analysis: '分類・出典を確認する',
+          compare: { add: '比較に追加', remove: '比較から外す', title: '2本を比較', one: 'あと1本選ぶと違いを並べて確認できます。', two: '同じ正準データの項目を横並びで比較しています。', clear: '比較をクリア', limit: '比較は2本までです。' },
+          compareLabels: { release: '発売', family: '設計ファミリー', modes: 'プレイ形態', genres: '公式ジャンル', tags: '派生タグ', links: '公式リンク' },
           evidence: (schema, date, policy) => `Schema <code>${schema}</code> / Generated <code>${date}</code> / Source policy: ${policy}`,
           image: '画像上の日付', designer: 'Designer', developerUnknown: 'Developer unknown',
           links: { store: 'Store', official: 'Official', board: 'Board', metadata: 'Evidence' },
@@ -185,6 +214,8 @@
           shown: (count) => `${count} shown`, free: (free, paid) => `${free} free / ${paid} paid or unknown`,
           metrics: ['Titles', 'Design families', 'Released', 'Official sites'],
           analysis: 'Inspect classification and evidence',
+          compare: { add: 'Add to compare', remove: 'Remove', title: 'Compare two games', one: 'Choose one more game to compare them side by side.', two: 'Comparing the same canonical fields side by side.', clear: 'Clear comparison', limit: 'You can compare up to two games.' },
+          compareLabels: { release: 'Release', family: 'Design family', modes: 'Play modes', genres: 'Official genres', tags: 'Derived tags', links: 'Official links' },
           evidence: (schema, date, policy) => `Schema <code>${schema}</code> / Generated <code>${date}</code> / Source policy: ${policy}`,
           image: 'Image date', designer: 'Designer', developerUnknown: 'Developer unknown',
           links: { store: 'Store', official: 'Official', board: 'Board', metadata: 'Evidence' },
@@ -210,6 +241,7 @@
         const params = new URLSearchParams();
         if (controls.search.value.trim()) params.set('q', controls.search.value.trim());
         for (const key of ['family', 'genre', 'mode', 'tag']) if (controls[key].value) params.set(key, controls[key].value);
+        if (compareIds.length) params.set('compare', compareIds.join(','));
         const next = `${location.pathname}${params.size ? `?${params}` : ''}${location.hash}`;
         history.replaceState(null, '', next);
       }
@@ -220,6 +252,49 @@
           const value = params.get(key) || '';
           if ([...controls[key].options].some((item) => item.value === value)) controls[key].value = value;
         }
+      }
+      function restoreCompareUrl(games) {
+        const requested = (new URLSearchParams(location.search).get('compare') || '').split(',').filter(Boolean);
+        const validIds = new Set(games.map((game) => game.id));
+        compareIds = [...new Set(requested)].filter((id) => validIds.has(id)).slice(0, 2);
+      }
+      function compareValue(values) {
+        return values?.length ? values.join(', ') : '—';
+      }
+      function renderCompare({ updateUrl = true } = {}) {
+        if (!libraryCache) return;
+        const t = text[currentLang];
+        const selected = compareIds.map((id) => libraryCache.games.find((game) => game.id === id)).filter(Boolean);
+        comparePanel.hidden = selected.length === 0;
+        document.querySelector('#compare-title').textContent = t.compare.title;
+        document.querySelector('#compare-hint').textContent = selected.length === 1 ? t.compare.one : t.compare.two;
+        compareClear.textContent = t.compare.clear;
+        compareGrid.innerHTML = selected.map((game) => `
+          <article class="compare-game">
+            <h3>${game.title}</h3>
+            <div class="compare-row"><span class="compare-label">${t.compareLabels.release}</span><span>${game.release_date}</span></div>
+            <div class="compare-row"><span class="compare-label">${t.compareLabels.family}</span><span>${game.design_family}</span></div>
+            <div class="compare-row"><span class="compare-label">${t.compareLabels.modes}</span><span>${compareValue(game.play_modes)}</span></div>
+            <div class="compare-row"><span class="compare-label">${t.compareLabels.genres}</span><span>${compareValue(game.official_genres)}</span></div>
+            <div class="compare-row"><span class="compare-label">${t.compareLabels.tags}</span><span>${compareValue(game.derived_tags)}</span></div>
+            <div class="compare-row"><span class="compare-label">${t.compareLabels.links}</span><span class="card-links">${link(t.links.store, game.official_store)}${link(t.links.official, game.official_website)}${link(t.links.metadata, game.evidence.metadata_source)}</span></div>
+          </article>`).join('');
+        document.querySelectorAll('[data-compare-id]').forEach((button) => {
+          const selectedNow = compareIds.includes(button.dataset.compareId);
+          button.setAttribute('aria-pressed', String(selectedNow));
+          button.textContent = selectedNow ? t.compare.remove : t.compare.add;
+          button.disabled = !selectedNow && compareIds.length >= 2;
+          button.title = button.disabled ? t.compare.limit : '';
+        });
+        if (updateUrl) syncUrl();
+      }
+      function toggleCompare(id) {
+        if (compareIds.includes(id)) {
+          compareIds = compareIds.filter((item) => item !== id);
+        } else if (compareIds.length < 2) {
+          compareIds = [...compareIds, id];
+        }
+        renderCompare();
       }
       function applyFilters({ updateUrl = true } = {}) {
         const query = controls.search.value.trim().toLowerCase();
@@ -295,7 +370,7 @@
                 <span>${game.design_family}</span>
               </div>
               <div class="chips">${[...game.play_modes, ...game.official_genres.slice(0, 3), ...game.derived_tags.slice(0, 4)].map(chip).join('')}</div>
-              <div class="card-links">${link(t.links.store, game.official_store)}${link(t.links.official, game.official_website)}${link(t.links.board, game.board_game_official)}${link(t.links.metadata, game.evidence.metadata_source)}</div>
+              <div class="card-links"><button class="compare-toggle" type="button" data-compare-id="${game.id}" aria-pressed="false">${t.compare.add}</button>${link(t.links.store, game.official_store)}${link(t.links.official, game.official_website)}${link(t.links.board, game.board_game_official)}${link(t.links.metadata, game.evidence.metadata_source)}</div>
             </div>
           </article>`).join('');
         document.querySelector('.ontology').innerHTML = families.map(([key, description]) => `<div class="node"><b>${key}</b><span>${description}</span></div>`).join('');
@@ -305,10 +380,14 @@
           return `<div class="bar"><span>${key}</span><span class="rail"><span class="fill" style="--value:${width}"></span></span><span>${count}</span></div>`;
         }).join('');
         document.querySelector('#evidence').innerHTML = t.evidence(library.schema, library.generated_at, library.ontology.source_policy);
+        if (!preserveFilters) restoreCompareUrl(games);
         applyFilters({ updateUrl: false });
+        renderCompare({ updateUrl: false });
       }
 
       for (const element of [controls.search, controls.family, controls.genre, controls.mode, controls.tag]) element.addEventListener('input', () => applyFilters());
+      grid.addEventListener('click', (event) => { const button = event.target.closest('[data-compare-id]'); if (button) toggleCompare(button.dataset.compareId); });
+      compareClear.addEventListener('click', () => { compareIds = []; renderCompare(); });
       document.querySelectorAll('[data-lang-button]').forEach((button) => button.addEventListener('click', () => { currentLang = button.dataset.langButton; applyLanguage(); }));
       controls.reset.addEventListener('click', () => {
         controls.search.value = '';
