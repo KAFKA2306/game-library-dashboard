@@ -49,8 +49,9 @@ class IndexContractTest(unittest.TestCase):
         self.assertIn('aria-pressed="false"', self.html)
 
     def test_compare_uses_existing_canonical_fields(self):
-        for field in ("release_date", "design_family", "play_modes", "official_genres", "derived_tags", "official_store", "metadata_source"):
+        for field in ("release_date", "design_family", "play_modes", "official_genres", "derived_tags", "official_store"):
             self.assertIn(f"game.{field}", self.html)
+        self.assertIn("game.evidence.metadata_source", self.html)
 
     def test_data_fetch_failure_is_not_silently_swallowed(self):
         self.assertIn("if (!response.ok) throw new Error", self.html)
