@@ -48,6 +48,9 @@
       .metrics { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
       .metric { border-left: 2px solid var(--border); padding: 2px 10px; color: var(--muted); }
       .metric strong { color: var(--foreground); font-family: var(--mono); margin-right: 6px; }
+      .hero-evidence { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-top: var(--space-3); color: var(--muted); font-size: 12px; }
+      .hero-evidence strong, .hero-evidence code { color: var(--foreground); font-family: var(--mono); }
+      .hero-evidence a { font-weight: 700; }
       .controls { position: sticky; top: 0; z-index: 5; display: grid; grid-template-columns: minmax(220px, 1.4fr) repeat(4, minmax(130px, 1fr)) auto; gap: var(--space-2); padding: var(--space-3); border: 1px solid var(--border); background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(10px); }
       .control { display: grid; gap: var(--space-1); }
       label { color: var(--muted); font-size: 12px; font-weight: 700; }
@@ -125,13 +128,12 @@
           <a href="https://github.com/KAFKA2306/game-library-dashboard" rel="noreferrer">GitHub</a>
         </div>
       </nav>
-
       <section class="hero">
         <h1 id="hero-title"></h1>
         <p class="lead" id="hero-lead"></p>
         <div class="metrics" aria-label="Library metrics"></div>
+        <div class="hero-evidence" id="hero-evidence" aria-live="polite"></div>
       </section>
-
       <section class="controls" aria-label="Game filters">
         <div class="control"><label for="search" id="label-search"></label><input id="search" type="search" autocomplete="off" /></div>
         <div class="control"><label for="family" id="label-family"></label><select id="family"><option value="">All</option></select></div>
@@ -140,7 +142,6 @@
         <div class="control"><label for="tag" id="label-tag"></label><select id="tag"><option value="">All</option></select></div>
         <button id="reset" type="button">Reset</button>
       </section>
-
       <section class="summary">
         <div><h2 id="library-title"></h2><span class="count" id="result-count">loading</span></div>
         <span class="count" id="price-count"></span>
@@ -157,7 +158,6 @@
       </section>
       <section class="game-grid" id="game-grid" aria-label="Game library"></section>
       <div class="empty" id="empty"></div>
-
       <section class="analysis">
         <details>
           <summary id="analysis-title"></summary>
@@ -169,7 +169,6 @@
         </details>
       </section>
     </main>
-
     <script>
       const controls = {
         search: document.querySelector('#search'),
@@ -198,6 +197,7 @@
           library: '候補ゲーム', empty: '条件に一致するゲームがありません。条件を減らして再検索してください。',
           shown: (count) => `${count}件を表示`, free: (free, paid) => `無料 ${free} / 有料または不明 ${paid}`,
           metrics: ['収録', '設計ファミリー', '発売済み', '公式サイトあり'],
+          provenance: (schema, date) => `データ生成 <strong>${date}</strong> / Schema <code>${schema}</code> / <a href="data/game-library.json">正準データを確認</a>`,
           analysis: '分類・出典を確認する',
           compare: { add: '比較に追加', remove: '比較から外す', title: '2本を比較', one: 'あと1本選ぶと違いを並べて確認できます。', two: '同じ正準データの項目を横並びで比較しています。', clear: '比較をクリア', limit: '比較は2本までです。' },
           compareLabels: { release: '発売', family: '設計ファミリー', modes: 'プレイ形態', genres: '公式ジャンル', tags: '派生タグ', links: '公式リンク' },
@@ -213,6 +213,7 @@
           library: 'Game candidates', empty: 'No games match these filters. Remove a condition and try again.',
           shown: (count) => `${count} shown`, free: (free, paid) => `${free} free / ${paid} paid or unknown`,
           metrics: ['Titles', 'Design families', 'Released', 'Official sites'],
+          provenance: (schema, date) => `Generated <strong>${date}</strong> / Schema <code>${schema}</code> / <a href="data/game-library.json">Inspect canonical data</a>`,
           analysis: 'Inspect classification and evidence',
           compare: { add: 'Add to compare', remove: 'Remove', title: 'Compare two games', one: 'Choose one more game to compare them side by side.', two: 'Comparing the same canonical fields side by side.', clear: 'Clear comparison', limit: 'You can compare up to two games.' },
           compareLabels: { release: 'Release', family: 'Design family', modes: 'Play modes', genres: 'Official genres', tags: 'Derived tags', links: 'Official links' },
@@ -221,7 +222,6 @@
           links: { store: 'Store', official: 'Official', board: 'Board', metadata: 'Evidence' },
         },
       };
-
       function getInitialLanguage() {
         const saved = localStorage.getItem('game-dashboard-lang');
         if (saved === 'ja' || saved === 'en') return saved;
@@ -343,9 +343,9 @@
         const freeCount = games.filter((game) => game.is_free).length;
         const officialSites = games.filter((game) => game.official_website).length;
         const current = preserveFilters ? Object.fromEntries(['search', 'family', 'genre', 'mode', 'tag'].map((key) => [key, controls[key].value])) : null;
-
         document.querySelector('.metrics').innerHTML = [[games.length, t.metrics[0]], [families.length, t.metrics[1]], [released, t.metrics[2]], [officialSites, t.metrics[3]]]
           .map(([value, label]) => `<span class="metric"><strong>${value}</strong>${label}</span>`).join('');
+        document.querySelector('#hero-evidence').innerHTML = t.provenance(library.schema, library.generated_at);
         for (const select of [controls.family, controls.genre, controls.mode, controls.tag]) select.length = 1;
         families.forEach(([key]) => option(controls.family, key));
         genres.forEach((value) => option(controls.genre, value));
@@ -356,7 +356,6 @@
         } else {
           restoreUrl();
         }
-
         controls.price.textContent = t.free(freeCount, games.length - freeCount);
         grid.innerHTML = games.map((game) => `
           <article class="game-card" data-search="${`${game.title} ${game.developers.join(' ')} ${game.publishers.join(' ')} ${game.derived_tags.join(' ')}`.toLowerCase()}" data-family="${game.design_family}" data-genres="${game.official_genres.join('|')}" data-modes="${game.play_modes.join('|')}" data-tags="${game.derived_tags.join('|')}">
@@ -384,7 +383,6 @@
         applyFilters({ updateUrl: false });
         renderCompare({ updateUrl: false });
       }
-
       for (const element of [controls.search, controls.family, controls.genre, controls.mode, controls.tag]) element.addEventListener('input', () => applyFilters());
       grid.addEventListener('click', (event) => { const button = event.target.closest('[data-compare-id]'); if (button) toggleCompare(button.dataset.compareId); });
       compareClear.addEventListener('click', () => { compareIds = []; renderCompare(); });
