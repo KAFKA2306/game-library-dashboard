@@ -30,6 +30,14 @@ class IndexContractTest(unittest.TestCase):
             self.html.index('class="analysis"'),
         )
 
+    def test_canonical_data_provenance_precedes_filters(self):
+        self.assertLess(
+            self.html.index('id="hero-evidence"'),
+            self.html.index('class="controls"'),
+        )
+        self.assertIn("t.provenance(library.schema, library.generated_at)", self.html)
+        self.assertIn('href="data/game-library.json"', self.html)
+
     def test_filter_state_is_shareable_by_url(self):
         self.assertIn("params.set('q'", self.html)
         self.assertIn("params.get('q')", self.html)
