@@ -1,0 +1,8 @@
+{
+  "schema": "kafka.catalog-delivery.v1",
+  "config": "catalog-config.json",
+  "inventory": {
+    "schema": "kafka.catalog-inventory.v1",
+    "path": "inventory.csv"
+  }
+}
