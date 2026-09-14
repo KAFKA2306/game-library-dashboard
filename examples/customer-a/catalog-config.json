@@ -1,0 +1,10 @@
+{
+  "schema": "kafka.catalog-config.v1",
+  "catalog_id": "fixture-community-a",
+  "display_name": "Fixture Community A",
+  "locale": "ja-JP",
+  "contact_url": "",
+  "enabled_filters": ["title", "platform", "availability", "language", "local_tag"],
+  "brand": {"logo_url": ""},
+  "rights_statement": "Fixture data for reproducible delivery testing only."
+}
