@@ -26,6 +26,28 @@ python scripts/build_white_label_catalog.py \
 
 生成物は `catalog.json` と `index.html` です。
 
+## 再利用可能な納品単位
+
+新しい顧客ごとに application code を変更しません。顧客固有の入力は、同じディレクトリに置く次の3ファイルだけです。
+
+- `delivery.json` — `kafka.catalog-delivery.v1`。config と holdings input の場所を固定する納品spec
+- `catalog-config.json` — `kafka.catalog-config.v1`。表示名・locale・filterなど
+- `inventory.csv` — `delivery.json` から `kafka.catalog-inventory.v1` として宣言される所蔵入力
+
+正準生成器は `scripts/build_white_label_catalog.py` のままです。`scripts/build_catalog_delivery.py` は上記specを検証して正準生成器を呼び、納品証跡を追加します。
+
+```bash
+python scripts/build_catalog_delivery.py \
+  --canonical data/game-library.json \
+  --delivery examples/customer-a/delivery.json \
+  --source-revision "$(git rev-parse HEAD)" \
+  --output-dir build/customer-a
+```
+
+生成物は `catalog.json`、`index.html`、`delivery-report.json` です。reportはexact source revisionと、delivery spec / config / inventory / canonical data /生成物のSHA-256を保持します。同じrevision・同じ入力なら同じ生成物とreportになります。
+
+`examples/customer-a` と `examples/customer-b` は、異なるconfigとholdingsを同じproduction pathへ通す合成fixtureです。CIは両方を生成し、顧客Bの追加にsource editが不要であることを回帰検証します。更新時も顧客ディレクトリ内のconfig/import dataだけを変更して同じコマンドを再実行します。
+
 ## データ境界
 
 1. **Official / sourced metadata** — 既存正本で根拠があるタイトル、公式genre、play mode、公式URL、evidence。
