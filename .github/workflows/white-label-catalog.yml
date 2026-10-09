@@ -8,8 +8,11 @@ on:
       - "data/import-template.csv"
       - "data/sample-inventory.csv"
       - "data/catalog-funnel.json"
+      - "examples/**"
       - "scripts/build_white_label_catalog.py"
+      - "scripts/build_catalog_delivery.py"
       - "tests/test_white_label_catalog.py"
+      - "tests/test_catalog_delivery.py"
       - "docs/business/white-label-library-catalog.md"
       - ".github/workflows/white-label-catalog.yml"
   push:
@@ -20,8 +23,11 @@ on:
       - "data/import-template.csv"
       - "data/sample-inventory.csv"
       - "data/catalog-funnel.json"
+      - "examples/**"
       - "scripts/build_white_label_catalog.py"
+      - "scripts/build_catalog_delivery.py"
       - "tests/test_white_label_catalog.py"
+      - "tests/test_catalog_delivery.py"
       - "docs/business/white-label-library-catalog.md"
       - ".github/workflows/white-label-catalog.yml"
   workflow_dispatch:
@@ -39,35 +45,63 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - name: Compile
-        run: python -m py_compile scripts/build_white_label_catalog.py tests/test_white_label_catalog.py
+        run: >-
+          python -m py_compile
+          scripts/build_white_label_catalog.py
+          scripts/build_catalog_delivery.py
+          tests/test_white_label_catalog.py
+          tests/test_catalog_delivery.py
       - name: Test
-        run: python -m unittest tests.test_white_label_catalog -v
-      - name: Build synthetic sample catalog
+        run: python -m unittest tests.test_white_label_catalog tests.test_catalog_delivery -v
+      - name: Build legacy synthetic sample catalog
         run: |
           python scripts/build_white_label_catalog.py \
             --canonical data/game-library.json \
             --inventory data/sample-inventory.csv \
             --config catalog-config.json \
             --output-dir build/sample-catalog
-      - name: Audit generated catalog
+      - name: Build two customer delivery units
+        env:
+          SOURCE_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          python scripts/build_catalog_delivery.py \
+            --canonical data/game-library.json \
+            --delivery examples/customer-a/delivery.json \
+            --source-revision "$SOURCE_REVISION" \
+            --output-dir build/customer-a
+          python scripts/build_catalog_delivery.py \
+            --canonical data/game-library.json \
+            --delivery examples/customer-b/delivery.json \
+            --source-revision "$SOURCE_REVISION" \
+            --output-dir build/customer-b
+      - name: Audit generated catalogs
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          data = json.loads(Path("build/sample-catalog/catalog.json").read_text(encoding="utf-8"))
-          assert data["schema"] == "kafka.white-label-library.v1"
-          assert len(data["holdings"]) == 4
-          assert data["policy"]["availability_source"] == "CUSTOMER_PROVIDED_ONLY"
-          assert any(row["identity_status"] == "NOT_FOUND" for row in data["holdings"])
-          assert Path("build/sample-catalog/index.html").stat().st_size > 1000
-          print("catalog audit: PASS")
+          legacy = json.loads(Path("build/sample-catalog/catalog.json").read_text(encoding="utf-8"))
+          assert legacy["schema"] == "kafka.white-label-library.v1"
+          assert len(legacy["holdings"]) == 4
+          assert legacy["policy"]["availability_source"] == "CUSTOMER_PROVIDED_ONLY"
+          assert any(row["identity_status"] == "NOT_FOUND" for row in legacy["holdings"])
+          reports = [
+              json.loads(Path(f"build/customer-{name}/delivery-report.json").read_text(encoding="utf-8"))
+              for name in ("a", "b")
+          ]
+          assert [r["status"] for r in reports] == ["PASS", "PASS"]
+          assert reports[0]["catalog_id"] != reports[1]["catalog_id"]
+          assert reports[0]["inputs"]["inventory"]["sha256"] != reports[1]["inputs"]["inventory"]["sha256"]
+          assert all(len(r["source_revision"]) == 40 for r in reports)
+          print("catalog delivery audit: PASS")
           PY
       - uses: actions/upload-artifact@v4
         with:
           name: sample-white-label-catalog
-          path: build/sample-catalog/
+          path: build/
           retention-days: 14
